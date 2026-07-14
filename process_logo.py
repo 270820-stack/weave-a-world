@@ -43,10 +43,23 @@ def main():
                 seen[nx][ny] = True
                 q.append((nx, ny))
 
+    # Second pass: black counters enclosed inside the letters (A, O, etc.)
+    # are not connected to the border, so the flood fill misses them.
+    # The lettering sits in the top band of the image; the textile
+    # continents (which legitimately contain dark pixels) sit lower, so
+    # only sweep the band above the globes.
+    text_band = int(h * 0.30)
+    swept = 0
+    for y in range(text_band):
+        for x in range(w):
+            if is_black(x, y):
+                px[x, y] = (0, 0, 0, 0)
+                swept += 1
+
     bbox = im.getbbox()
     im = im.crop(bbox)
     im.save(DST)
-    print(f"cleared {cleared} px, cropped to {im.size}, saved {DST}")
+    print(f"cleared {cleared} px + {swept} in letter counters, cropped to {im.size}, saved {DST}")
 
     # Square favicon from the full logo, centred on a transparent canvas
     side = max(im.size)
