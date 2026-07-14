@@ -1,0 +1,26 @@
+WEAVE-A-WORLD · THE LIVING COLOURS
+Ten Educational Posters on Cultural Preservation
+By Charles Huang (Hong Kong SAR) · Weave-a-World
+
+HERO HEADLINE: The Living Colours of the World's Dye Traditions
+
+HERO TEXT: Before synthetic chemistry, every colour worn by humanity was coaxed from leaves, roots, bark, flowers, and even insects. This collection travels through ten natural dye traditions — from the indigo vats of West Africa to the logwood forests of the Caribbean — tracing the culture, chemistry, and stories behind each hue, and asking how the next generation can keep them alive.
+
+HERO IMAGE: images/home-hero.png
+
+STATS: 10 Dye Traditions · 6 Continents Touched · 3,000+ Years of Heritage · 9 Lenses per Poster · 1 Shared Future
+
+SECTION: Colour is Culture — and Chemistry
+A vat of fermenting indigo is at once a chemistry experiment, a family inheritance, and a community ritual. When a natural dye tradition disappears, we lose more than a colour: we lose recipes refined over centuries, the ecological knowledge of dye plants and insects, and the ceremonies that bound people to their landscapes.
+
+THE TEN PAGES (one Canva page per dye):
+  01. The Living Blue: Indigo Heritage of West Africa (Nigeria & Mali)
+  02. The Living Red: Cochineal in Mexico & Peru (Mexico & Peru)
+  03. The Living Red: Madder Root in India (India)
+  04. The Living Blue: Woad in Celtic Europe (Britain, Ireland & Gaul)
+  05. The Living Gold: Marigold in Navajo Traditions (United States (Diné))
+  06. The Living Gold: Saffron in Persia (Iran) (Iran)
+  07. The Living Blue: Shibori Indigo in Japan (Japan)
+  08. The Living Amber: Birch Bark in Finland (Finland & Karelia)
+  09. The Living Earth: Henna in North Africa & India (Morocco to Rajasthan)
+  10. The Living Shadow: Logwood in the Caribbean (Jamaica, Belize & Campeche)

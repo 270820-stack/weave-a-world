@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Ten Dyes · Weave-a-World</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <nav class="topnav">
+    <a class="brand" href="index.html"><span class="brand-mark"></span>Weave-a-World</a>
+    <div class="topnav-links">
+      <a href="index.html">Home</a>
+      <a href="collection.html" class="active">The Ten Dyes</a>
+      <a href="collection.html#youth">Youth Action</a>
+    </div>
+  </nav>
+
+  <header class="collection-hero">
+    <div class="shell">
+      <p class="eyebrow">The Collection</p>
+      <h1>Ten Dyes, Ten Living Traditions</h1>
+      <p>Each poster below explores one natural dye through nine lenses — its overview, cultural significance, chemistry, traditional techniques, a famous case story, modern revival, global exhibitions, conservation challenges, and the ways young people can keep the tradition alive. Choose a tab to explore by colour family or by region.</p>
+    </div>
+  </header>
+
+  <div class="shell" id="youth">
+    <div class="tabs" role="tablist" aria-label="Filter the dye collection">
+      <button class="tab active" data-filter="all">All Ten Dyes</button>
+      <button class="tab" data-filter="blue">Blues</button>
+      <button class="tab" data-filter="red">Reds</button>
+      <button class="tab" data-filter="gold">Golds</button>
+      <button class="tab" data-filter="deep">Deep Hues</button>
+      <button class="tab" data-filter="africa">Africa</button>
+      <button class="tab" data-filter="asia">Asia</button>
+      <button class="tab" data-filter="americas">The Americas</button>
+      <button class="tab" data-filter="europe">Europe</button>
+    </div>
+
+    <div class="dye-grid">
+      <a class="dye-card reveal" href="dyes/indigo-west-africa.html" data-groups="blue africa" style="--c1:#2b3f6b; --c2:#5a74a8">
+        <div class="dye-card-swatch">
+          <img src="images/indigo-west-africa.png" alt="Textile-art illustration: Indigo Heritage of West Africa" loading="lazy" />
+          <span class="dye-card-num">No. 01</span>
+          <span class="dye-card-region-tag">Nigeria &amp; Mali</span>
+        </div>
+        <div class="dye-card-body">
+          <span class="sub">The Living Blue</span>
+          <h3>Indigo Heritage of West Africa</h3>
+          <p>A thousand-year vat tradition where fermented Indigofera leaves yield the deep blues of adire cloth, Dogon ritual, and West African identity.</p>
+          <span class="dye-card-cta">Read the poster &rarr;</span>
+        </div>
+      </a>
+      <a class="dye-card reveal" href="dyes/cochineal-mexico-peru.html" data-groups="red americas" style="--c1:#9b1b30; --c2:#d4536a">
+        <div class="dye-card-swatch">
+          <img src="images/cochineal-mexico-peru.png" alt="Textile-art illustration: Cochineal in Mexico &amp; Peru" loading="lazy" />
+          <span class="dye-card-num">No. 02</span>
+          <span class="dye-card-region-tag">Mexico &amp; Peru</span>
+        </div>
+        <div class="dye-card-body">
+          <span class="sub">The Living Red</span>
+          <h3>Cochineal in Mexico &amp; Peru</h3>
+          <p>Carminic acid from a tiny cactus insect once traded like silver — the crimson of Mixtec, Zapotec, and Andean weaving for over a thousand years.</p>
+          <span class="dye-card-cta">Read the poster &rarr;</span>
+        </div>
+      </a>
+      <a class="dye-card reveal" href="dyes/madder-india.html" data-groups="red asia" style="--c1:#a3402c; --c2:#d47a5a">
+        <div class="dye-card-swatch">
+          <img src="images/madder-india.png" alt="Textile-art illustration: Madder Root in India" loading="lazy" />
+          <span class="dye-card-num">No. 03</span>
+          <span class="dye-card-region-tag">India</span>
+        </div>
+        <div class="dye-card-body">
+          <span class="sub">The Living Red</span>
+          <h3>Madder Root in India</h3>
+          <p>Alizarin reds from Rubia cordifolia roots — the auspicious colour of bridal saris, ajrakh block prints, and centuries of Indian Ocean trade.</p>
+          <span class="dye-card-cta">Read the poster &rarr;</span>
+        </div>
+      </a>
+      <a class="dye-card reveal" href="dyes/woad-celtic-europe.html" data-groups="blue europe" style="--c1:#3d5a80; --c2:#7a97b8">
+        <div class="dye-card-swatch">
+          <img src="images/woad-celtic-europe.png" alt="Textile-art illustration: Woad in Celtic Europe" loading="lazy" />
+          <span class="dye-card-num">No. 04</span>
+          <span class="dye-card-region-tag">Britain, Ireland &amp; Gaul</span>
+        </div>
+        <div class="dye-card-body">
+          <span class="sub">The Living Blue</span>
+          <h3>Woad in Celtic Europe</h3>
+          <p>Europe&#x27;s own indigo — the fermented blue of Pictish warriors, tribal plaids, and medieval vats, drawn from the humble leaves of Isatis tinctoria.</p>
+          <span class="dye-card-cta">Read the poster &rarr;</span>
+        </div>
+      </a>
+      <a class="dye-card reveal" href="dyes/marigold-navajo.html" data-groups="gold americas" style="--c1:#c98a10; --c2:#eec24e">
+        <div class="dye-card-swatch">
+          <img src="images/marigold-navajo.png" alt="Textile-art illustration: Marigold in Navajo Traditions" loading="lazy" />
+          <span class="dye-card-num">No. 05</span>
+          <span class="dye-card-region-tag">United States (Diné)</span>
+        </div>
+        <div class="dye-card-body">
+          <span class="sub">The Living Gold</span>
+          <h3>Marigold in Navajo Traditions</h3>
+          <p>Lutein-rich petals dyed into wool for Navajo rugs and blankets — a gold that carries the sun, the southern direction, and prayers for balance.</p>
+          <span class="dye-card-cta">Read the poster &rarr;</span>
+        </div>
+      </a>
+      <a class="dye-card reveal" href="dyes/saffron-persia.html" data-groups="gold asia" style="--c1:#c07419; --c2:#e8a94b">
+        <div class="dye-card-swatch">
+          <img src="images/saffron-persia.png" alt="Textile-art illustration: Saffron in Persia (Iran)" loading="lazy" />
+          <span class="dye-card-num">No. 06</span>
+          <span class="dye-card-region-tag">Iran</span>
+        </div>
+        <div class="dye-card-body">
+          <span class="sub">The Living Gold</span>
+          <h3>Saffron in Persia (Iran)</h3>
+          <p>Crocin and crocetin from hand-picked crocus stigmas — the golden glow of Nowruz cloth, Safavid court robes, and Persian ideals of light.</p>
+          <span class="dye-card-cta">Read the poster &rarr;</span>
+        </div>
+      </a>
+      <a class="dye-card reveal" href="dyes/shibori-indigo-japan.html" data-groups="blue asia" style="--c1:#1f3a5f; --c2:#4d6f9d">
+        <div class="dye-card-swatch">
+          <img src="images/shibori-indigo-japan.png" alt="Textile-art illustration: Shibori Indigo in Japan" loading="lazy" />
+          <span class="dye-card-num">No. 07</span>
+          <span class="dye-card-region-tag">Japan</span>
+        </div>
+        <div class="dye-card-body">
+          <span class="sub">The Living Blue</span>
+          <h3>Shibori Indigo in Japan</h3>
+          <p>Bound, stitched, and folded resist patterns dipped in fermented indigo vats — the &#x27;Japan blue&#x27; of samurai, farmers, and the Arimatsu festival.</p>
+          <span class="dye-card-cta">Read the poster &rarr;</span>
+        </div>
+      </a>
+      <a class="dye-card reveal" href="dyes/birch-bark-finland.html" data-groups="gold europe" style="--c1:#a37f3d; --c2:#cbb075">
+        <div class="dye-card-swatch">
+          <img src="images/birch-bark-finland.png" alt="Textile-art illustration: Birch Bark in Finland" loading="lazy" />
+          <span class="dye-card-num">No. 08</span>
+          <span class="dye-card-region-tag">Finland &amp; Karelia</span>
+        </div>
+        <div class="dye-card-body">
+          <span class="sub">The Living Amber</span>
+          <h3>Birch Bark in Finland</h3>
+          <p>Simmered bark of the northern birch yields warm yellows and tans for Karelian folk costume — a forest chemistry kept alive at Finland&#x27;s folk festivals.</p>
+          <span class="dye-card-cta">Read the poster &rarr;</span>
+        </div>
+      </a>
+      <a class="dye-card reveal" href="dyes/henna-north-africa-india.html" data-groups="deep africa asia" style="--c1:#8c4a1f; --c2:#c07d4a">
+        <div class="dye-card-swatch">
+          <img src="images/henna-north-africa-india.png" alt="Textile-art illustration: Henna in North Africa &amp; India" loading="lazy" />
+          <span class="dye-card-num">No. 09</span>
+          <span class="dye-card-region-tag">Morocco to Rajasthan</span>
+        </div>
+        <div class="dye-card-body">
+          <span class="sub">The Living Earth</span>
+          <h3>Henna in North Africa &amp; India</h3>
+          <p>Lawsone from crushed henna leaves binds to skin and cloth alike — the red-brown of Mehndi nights, Moroccan weddings, and rites of passage.</p>
+          <span class="dye-card-cta">Read the poster &rarr;</span>
+        </div>
+      </a>
+      <a class="dye-card reveal" href="dyes/logwood-caribbean.html" data-groups="deep americas" style="--c1:#4a2c5c; --c2:#7c5a94">
+        <div class="dye-card-swatch">
+          <img src="images/logwood-caribbean.png" alt="Textile-art illustration: Logwood in the Caribbean" loading="lazy" />
+          <span class="dye-card-num">No. 10</span>
+          <span class="dye-card-region-tag">Jamaica, Belize &amp; Campeche</span>
+        </div>
+        <div class="dye-card-body">
+          <span class="sub">The Living Shadow</span>
+          <h3>Logwood in the Caribbean</h3>
+          <p>Hematein purples and blacks from a thorny Caribbean tree — a dye that drove pirate raids, coloured colonial trade, and lives on in maroon festival dress.</p>
+          <span class="dye-card-cta">Read the poster &rarr;</span>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <footer>
+    <div class="shell footer-inner">
+      <a class="brand" href="#"><span class="brand-mark"></span>Weave-a-World</a>
+      <p>The Living Colours · Ten Educational Posters on Cultural Preservation · By Charles Huang (Hong Kong SAR)</p>
+    </div>
+  </footer>
+  <script src="js/main.js"></script>
+</body>
+</html>
