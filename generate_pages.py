@@ -613,7 +613,7 @@ BYLINE = "By Charles Huang (Hong Kong SAR) · Weave-a-World"
 def nav(depth: int, active: str) -> str:
     p = "../" if depth else ""
     return f"""  <nav class="topnav">
-    <a class="brand" href="{p}index.html"><span class="brand-mark"></span>Weave-a-World</a>
+    <a class="brand" href="{p}index.html"><img class="brand-logo" src="{p}images/logo.png" alt="Weave-a-World logo" />Weave-a-World</a>
     <div class="topnav-links">
       <a href="{p}index.html"{' class="active"' if active == 'home' else ''}>Home</a>
       <a href="{p}collection.html"{' class="active"' if active == 'collection' else ''}>The Ten Dyes</a>
@@ -622,10 +622,11 @@ def nav(depth: int, active: str) -> str:
   </nav>"""
 
 
-def footer() -> str:
-    return """  <footer>
+def footer(depth: int = 0) -> str:
+    p = "../" if depth else ""
+    return f"""  <footer>
     <div class="shell footer-inner">
-      <a class="brand" href="#"><span class="brand-mark"></span>Weave-a-World</a>
+      <a class="brand" href="{p}index.html"><span class="footer-logo-chip"><img class="brand-logo" src="{p}images/logo.png" alt="Weave-a-World logo" /></span>Weave-a-World</a>
       <p>The Living Colours · Ten Educational Posters on Cultural Preservation · By Charles Huang (Hong Kong SAR)</p>
     </div>
   </footer>"""
@@ -648,6 +649,7 @@ def head(title: str, depth: int, accent=None, accent_deep=None, accent_soft=None
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/png" href="{p}images/favicon.png" />
   <link rel="stylesheet" href="{p}css/style.css" />{override}
 </head>"""
 
@@ -778,7 +780,7 @@ def poster_page(i: int, dye: dict) -> str:
     </div>
   </nav>
 
-{footer()}
+{footer(1)}
   <script src="../js/main.js"></script>
 </body>
 </html>
@@ -872,6 +874,7 @@ def index_page() -> str:
   <header class="hero-home">
     <div class="shell hero-home-grid">
       <div>
+        <img class="hero-logo" src="images/logo.png" alt="Weave-a-World logo: two globes with continents made of textile patterns" />
         <p class="eyebrow">Ten Educational Posters on Cultural Preservation</p>
         <h1>The <em>Living Colours</em> of the World's Dye Traditions</h1>
         <p class="hero-lede">Before synthetic chemistry, every colour worn by humanity was coaxed from leaves, roots, bark, flowers, and even insects. This collection travels through ten natural dye traditions — from the indigo vats of West Africa to the logwood forests of the Caribbean — tracing the culture, chemistry, and stories behind each hue, and asking how the next generation can keep them alive.</p>

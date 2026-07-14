@@ -66,13 +66,25 @@ a:hover { color: var(--accent-deep); }
   gap: 0.6rem;
 }
 
-.brand-mark {
-  width: 30px; height: 30px;
-  border-radius: 50%;
-  background: conic-gradient(#31456e, #9b1b30, #a3402c, #d99a1b, #c77b1e, #4a2c5c, #31456e);
-  border: 2px solid var(--card);
-  box-shadow: 0 0 0 1px var(--line);
+.brand-logo {
+  height: 36px;
+  width: auto;
   flex: none;
+}
+
+.footer-logo-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--paper);
+  border-radius: 8px;
+  padding: 4px 8px;
+}
+
+.hero-logo {
+  height: clamp(90px, 12vw, 130px);
+  width: auto;
+  margin-bottom: 1.4rem;
 }
 
 .topnav-links {
