@@ -609,6 +609,9 @@ DYES = [
 
 BYLINE = "By Charles Huang (Hong Kong SAR) · Weave-a-World"
 
+# Bump when css/js change so browsers fetch the new files instead of cached ones
+ASSET_V = "2"
+
 
 def nav(depth: int, active: str) -> str:
     p = "../" if depth else ""
@@ -617,7 +620,7 @@ def nav(depth: int, active: str) -> str:
     <div class="topnav-links">
       <a href="{p}index.html"{' class="active"' if active == 'home' else ''}>Home</a>
       <a href="{p}collection.html"{' class="active"' if active == 'collection' else ''}>The Ten Dyes</a>
-      <a href="{p}collection.html#youth">Youth Action</a>
+      <a href="{p}youth.html"{' class="active"' if active == 'youth' else ''}>Youth Action</a>
     </div>
   </nav>"""
 
@@ -650,7 +653,7 @@ def head(title: str, depth: int, accent=None, accent_deep=None, accent_soft=None
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
   <link rel="icon" type="image/png" href="{p}images/favicon.png" />
-  <link rel="stylesheet" href="{p}css/style.css" />{override}
+  <link rel="stylesheet" href="{p}css/style.css?v={ASSET_V}" />{override}
 </head>"""
 
 
@@ -781,7 +784,7 @@ def poster_page(i: int, dye: dict) -> str:
   </nav>
 
 {footer(1)}
-  <script src="../js/main.js"></script>
+  <script src="../js/main.js?v={ASSET_V}"></script>
 </body>
 </html>
 """
@@ -843,7 +846,59 @@ def collection_page() -> str:
   </div>
 
 {footer()}
-  <script src="js/main.js"></script>
+  <script src="js/main.js?v={ASSET_V}"></script>
+</body>
+</html>
+"""
+
+
+def youth_page() -> str:
+    chips = []
+    blocks = []
+    for dye in DYES:
+        chips.append(
+            f'      <a class="youth-chip" href="#{dye["slug"]}" style="--c1:{dye["c1"]}">'
+            f'<span class="youth-chip-dot"></span>{html.escape(dye["title"])}</a>'
+        )
+        items = "\n".join(f"          <li>{item}</li>" for item in dye["youth"])
+        blocks.append(f"""      <section class="youth-block reveal" id="{dye['slug']}" style="--accent:{dye['accent']}; --accent-deep:{dye['accent_deep']}; --accent-soft:{dye['accent_soft']}; --c1:{dye['c1']}; --c2:{dye['c2']}">
+        <div class="youth-block-head">
+          <img class="youth-block-thumb" src="images/{dye['slug']}.png" alt="Textile-art illustration: {html.escape(dye['title'])}" loading="lazy" />
+          <div class="youth-block-title">
+            <span class="youth-block-kicker">No. {dye['num']} · {html.escape(dye['region'])}</span>
+            <h2>{html.escape(dye['living'])}: {html.escape(dye['title'])}</h2>
+          </div>
+          <a class="youth-block-link" href="dyes/{dye['slug']}.html">Full poster &rarr;</a>
+        </div>
+        <ol class="youth-list">
+{items}
+        </ol>
+      </section>""")
+
+    return f"""{head("Youth Action · Weave-a-World", 0)}
+<body>
+{nav(0, 'youth')}
+
+  <header class="collection-hero">
+    <div class="shell">
+      <p class="eyebrow">Youth Action</p>
+      <h1>How Young People Can Preserve the World's Dyes</h1>
+      <p>Every tradition in this collection survives only if a new generation takes it up. Gathered below are all fifty actions from the ten posters — practical ways for students and youth groups to grow dye plants, record elders' knowledge, run workshops, and carry these living colours forward. Jump to any dye, or scroll through them all.</p>
+    </div>
+  </header>
+
+  <div class="shell">
+    <nav class="youth-chips" aria-label="Jump to a dye">
+{chr(10).join(chips)}
+    </nav>
+
+    <div class="youth-blocks">
+{chr(10).join(blocks)}
+    </div>
+  </div>
+
+{footer()}
+  <script src="js/main.js?v={ASSET_V}"></script>
 </body>
 </html>
 """
@@ -952,7 +1007,7 @@ def index_page() -> str:
   </main>
 
 {footer()}
-  <script src="js/main.js"></script>
+  <script src="js/main.js?v={ASSET_V}"></script>
 </body>
 </html>
 """
@@ -966,6 +1021,8 @@ def main():
         print(f"  wrote dyes/{dye['slug']}.html")
     (ROOT / "collection.html").write_text(collection_page(), encoding="utf-8")
     print("  wrote collection.html")
+    (ROOT / "youth.html").write_text(youth_page(), encoding="utf-8")
+    print("  wrote youth.html")
     (ROOT / "index.html").write_text(index_page(), encoding="utf-8")
     print("  wrote index.html")
     print("Done.")

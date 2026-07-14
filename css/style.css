@@ -370,6 +370,101 @@ a:hover { color: var(--accent-deep); }
 .dye-card:hover .dye-card-cta { text-decoration: underline; text-underline-offset: 4px; }
 
 /* ============================================================
+   YOUTH ACTION PAGE
+   ============================================================ */
+.youth-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  padding-bottom: 2.4rem;
+}
+.youth-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.55rem 1.1rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--card);
+  color: var(--ink-soft);
+  transition: all 0.18s ease;
+}
+.youth-chip:hover { border-color: var(--c1); color: var(--ink); transform: translateY(-2px); }
+.youth-chip-dot {
+  width: 11px; height: 11px;
+  border-radius: 50%;
+  background: var(--c1);
+  flex: none;
+}
+
+.youth-blocks { padding-bottom: clamp(3.5rem, 8vw, 6rem); }
+
+.youth-block {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-left: 5px solid var(--accent);
+  border-radius: 6px;
+  padding: 1.8rem clamp(1.4rem, 3vw, 2.4rem) 1.9rem;
+  margin-bottom: 1.8rem;
+  scroll-margin-top: 90px;
+}
+
+.youth-block-head {
+  display: flex;
+  align-items: center;
+  gap: 1.4rem;
+  margin-bottom: 1.4rem;
+}
+.youth-block-thumb {
+  width: 86px; height: 86px;
+  object-fit: cover;
+  object-position: center 25%;
+  border-radius: 50%;
+  border: 3px solid var(--accent-soft);
+  box-shadow: 0 0 0 1px var(--line);
+  flex: none;
+}
+.youth-block-title { flex: 1; min-width: 0; }
+.youth-block-kicker {
+  display: block;
+  font-family: var(--sans);
+  font-size: 0.7rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-bottom: 0.3rem;
+}
+.youth-block-title h2 {
+  font-family: var(--display);
+  font-size: clamp(1.3rem, 2.6vw, 1.75rem);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--accent-deep);
+}
+.youth-block-link {
+  font-family: var(--sans);
+  font-size: 0.76rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+  white-space: nowrap;
+  align-self: flex-start;
+  margin-top: 0.4rem;
+}
+.youth-block-link:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+.youth-block .youth-list { max-width: none; }
+.youth-block .youth-list li { background: var(--paper); }
+
+@media (max-width: 640px) {
+  .youth-block-head { flex-wrap: wrap; }
+}
+
+/* ============================================================
    DYE POSTER PAGE
    ============================================================ */
 .poster-hero {

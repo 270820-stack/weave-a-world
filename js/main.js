@@ -10,9 +10,28 @@ const revealObserver = new IntersectionObserver(
       }
     });
   },
-  { threshold: 0.12 }
+  { threshold: 0.05 }
 );
 document.querySelectorAll(".reveal").forEach((el) => revealObserver.observe(el));
+
+// Anchor jumps (e.g. the Youth Action chips) can skip past elements faster
+// than the observer fires, leaving them invisible. When navigating to a
+// hash, instantly reveal the target and everything above it.
+function revealThrough(target) {
+  document.querySelectorAll(".reveal").forEach((el) => {
+    if (el === target || el.compareDocumentPosition(target) & Node.DOCUMENT_POSITION_FOLLOWING) {
+      el.classList.add("visible");
+      revealObserver.unobserve(el);
+    }
+  });
+}
+function handleHash() {
+  if (!location.hash) return;
+  const target = document.getElementById(location.hash.slice(1));
+  if (target) revealThrough(target.closest(".reveal") || target);
+}
+window.addEventListener("hashchange", handleHash);
+handleHash();
 
 // ---------- Collection screen: tab filtering ----------
 const tabs = document.querySelectorAll(".tab");
