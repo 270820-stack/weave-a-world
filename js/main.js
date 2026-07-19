@@ -48,6 +48,32 @@ tabs.forEach((tab) => {
   });
 });
 
+// ---------- About page: count-up numbers ----------
+const counters = document.querySelectorAll(".count[data-target]");
+if (counters.length) {
+  const countObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+        countObserver.unobserve(el);
+        const target = parseInt(el.dataset.target, 10);
+        const duration = 1400;
+        const start = performance.now();
+        const tick = (now) => {
+          const t = Math.min((now - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - t, 3);
+          el.textContent = Math.round(eased * target);
+          if (t < 1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+      });
+    },
+    { threshold: 0.6 }
+  );
+  counters.forEach((el) => countObserver.observe(el));
+}
+
 // ---------- Poster page: table-of-contents scrollspy ----------
 const tocLinks = document.querySelectorAll(".poster-toc a");
 if (tocLinks.length) {

@@ -610,7 +610,7 @@ DYES = [
 BYLINE = "By Charles Huang (Hong Kong SAR) · Weave-a-World"
 
 # Bump when css/js change so browsers fetch the new files instead of cached ones
-ASSET_V = "2"
+ASSET_V = "3"
 
 
 def nav(depth: int, active: str) -> str:
@@ -621,6 +621,7 @@ def nav(depth: int, active: str) -> str:
       <a href="{p}index.html"{' class="active"' if active == 'home' else ''}>Home</a>
       <a href="{p}collection.html"{' class="active"' if active == 'collection' else ''}>The Ten Dyes</a>
       <a href="{p}youth.html"{' class="active"' if active == 'youth' else ''}>Youth Action</a>
+      <a href="{p}about.html"{' class="active"' if active == 'about' else ''}>About Us</a>
     </div>
   </nav>"""
 
@@ -904,6 +905,93 @@ def youth_page() -> str:
 """
 
 
+def about_page() -> str:
+    orbs = "".join(
+        f'<span class="orb" style="--oc:{d["c1"]}; --od:{6 + i * 1.3:.1f}s; --ox:{(i * 37) % 90 + 4}%; --oy:{(i * 53) % 70 + 12}%"></span>'
+        for i, d in enumerate(DYES)
+    )
+    return f"""{head("About Us · Weave-a-World", 0)}
+<body>
+{nav(0, 'about')}
+
+  <header class="about-hero">
+    <div class="about-hero-bg" role="img" aria-label="Weave-a-World youth delegates seated at the UN High-Level Political Forum on Sustainable Development"></div>
+    <div class="about-hero-orbs" aria-hidden="true">{orbs}</div>
+    <div class="shell about-hero-content">
+      <p class="about-hero-kicker">About Us</p>
+      <h1>We Weave Heritage<br />Into the Future</h1>
+      <p class="about-hero-lede">Weave-a-World is a youth-led initiative championing the world's natural dye traditions — from classrooms and community gardens to the floor of the United Nations High-Level Political Forum on Sustainable Development.</p>
+      <a class="scroll-cue" href="#mission" aria-label="Scroll to mission">
+        <span></span>
+      </a>
+    </div>
+  </header>
+
+  <main>
+    <section class="about-mv" id="mission">
+      <div class="shell">
+        <div class="about-mv-grid">
+          <article class="mv-card mv-mission reveal">
+            <span class="mv-icon" aria-hidden="true">&#10047;</span>
+            <h2>Our Mission</h2>
+            <p>To preserve the world's natural dye heritage as living culture — documenting the recipes, chemistry, and ceremonies of traditional dyeing; supporting the elders and artisans who carry them; and equipping young people everywhere to grow, record, and practise these crafts in their own communities.</p>
+            <p>Every vat of indigo, bath of madder, and basket of marigolds holds centuries of ecological knowledge. When we keep a dye tradition alive, we keep a community's identity, economy, and connection to its landscape alive with it.</p>
+          </article>
+          <article class="mv-card mv-vision reveal">
+            <span class="mv-icon" aria-hidden="true">&#10048;</span>
+            <h2>Our Vision</h2>
+            <p>A world where what we wear honours both people and planet — where sustainable consumption and production are the norm, and the colours of our clothing come with stories rather than pollution.</p>
+            <p>Aligned with the UN Sustainable Development Goal&nbsp;12, we envision fashion systems in which natural dyes, fair artisan livelihoods, and circular making replace throwaway textiles — and where the next generation leads that change.</p>
+          </article>
+        </div>
+
+        <div class="about-pillars reveal">
+          <div class="pillar"><b class="count" data-target="10">0</b><span>Dye traditions documented</span></div>
+          <div class="pillar"><b class="count" data-target="50">0</b><span>Youth actions published</span></div>
+          <div class="pillar"><b class="count" data-target="6">0</b><span>Continents represented</span></div>
+          <div class="pillar"><b class="count" data-target="1">0</b><span>Shared future</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="about-founder">
+      <div class="shell about-founder-grid">
+        <figure class="founder-photo reveal">
+          <img src="images/founder.jpg" alt="Founder speaking at the UN High-Level Political Forum on Sustainable Development" />
+          <figcaption>Speaking at the UN High-Level Political Forum on Sustainable Development, New York.</figcaption>
+        </figure>
+        <div class="founder-text reveal">
+          <p class="eyebrow">The Founder</p>
+          <h2>[Founder Name]</h2>
+          <p class="founder-role">[Title — e.g. Founder &amp; Executive Director, Weave-a-World]</p>
+          <p>[Placeholder — a short paragraph introducing the founder: who they are, where they are from, and the moment that sparked Weave-a-World. Replace this text with the founder biography.]</p>
+          <p>[Placeholder — a second paragraph on the founder's work: advocacy at the UN High-Level Political Forum, community dye projects, research interests, and hopes for the initiative's future.]</p>
+          <blockquote class="founder-quote">
+            <p>&ldquo;[Placeholder for a short personal quote from the founder about why cultural preservation and sustainable fashion matter.]&rdquo;</p>
+          </blockquote>
+        </div>
+      </div>
+    </section>
+
+    <section class="about-cta">
+      <div class="shell about-cta-inner reveal">
+        <h2>Join the Weave</h2>
+        <p>Explore the ten dye traditions, take up a youth action, and help keep the world's living colours alive.</p>
+        <div class="hero-actions" style="justify-content:center">
+          <a class="btn btn-light" href="collection.html">Explore the Ten Dyes</a>
+          <a class="btn btn-ghost-light" href="youth.html">See Youth Actions</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+{footer()}
+  <script src="js/main.js?v={ASSET_V}"></script>
+</body>
+</html>
+"""
+
+
 def index_page() -> str:
     spectrum = "".join(f'<span style="background:{d["c1"]}"></span>' for d in DYES)
     featured = []
@@ -1023,6 +1111,8 @@ def main():
     print("  wrote collection.html")
     (ROOT / "youth.html").write_text(youth_page(), encoding="utf-8")
     print("  wrote youth.html")
+    (ROOT / "about.html").write_text(about_page(), encoding="utf-8")
+    print("  wrote about.html")
     (ROOT / "index.html").write_text(index_page(), encoding="utf-8")
     print("  wrote index.html")
     print("Done.")
