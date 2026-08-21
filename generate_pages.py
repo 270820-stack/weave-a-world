@@ -610,7 +610,7 @@ DYES = [
 BYLINE = "By Charles Huang (Hong Kong SAR) · Weave-a-World"
 
 # Bump when css/js change so browsers fetch the new files instead of cached ones
-ASSET_V = "17"
+ASSET_V = "18"
 
 
 def wipe_boot() -> str:
@@ -701,19 +701,34 @@ def head(title: str, depth: int, accent=None, accent_deep=None, accent_soft=None
 </head>"""
 
 
-def page_masthead(eyebrow: str, solid: str, script: str, lede: str, asides: list[str], lede_class: str = "") -> str:
+def page_masthead(
+    eyebrow: str,
+    solid: str,
+    script: str,
+    lede: str,
+    asides: list[str],
+    lede_class: str = "",
+    extra_class: str = "",
+) -> str:
     floats = "\n".join(
         f'    <p class="masthead-aside a{i + 1}">{html.escape(text)}</p>'
         for i, text in enumerate(asides)
     )
-    return f"""  <header class="page-masthead">
-    <div class="masthead-slashes" aria-hidden="true">
+    is_collection = "is-collection" in extra_class
+    extras = (
+        """    <div class="masthead-bar bar-main" aria-hidden="true"></div>
+    <div class="masthead-bar bar-accent" aria-hidden="true"></div>"""
+        if is_collection
+        else """    <div class="masthead-slashes" aria-hidden="true">
       <span class="masthead-slash s1"></span>
       <span class="masthead-slash s2"></span>
       <span class="masthead-slash s3"></span>
     </div>
-    <img class="masthead-ribbon r1" src="images/cloth-ribbon.png" alt="" />
-    <img class="masthead-ribbon r2" src="images/cloth-ribbon.png" alt="" />
+    <img class="masthead-ribbon r1" src="images/cloth-ribbon.png" alt="" />"""
+    )
+    cls = f"page-masthead {extra_class}".strip()
+    return f"""  <header class="{cls}">
+{extras}
 {floats}
     <div class="shell masthead-core">
       <p class="eyebrow">{html.escape(eyebrow)}</p>
@@ -904,6 +919,7 @@ def collection_page() -> str:
     "living traditions",
     "Each poster below explores one natural dye through nine lenses — its overview, cultural significance, chemistry, traditional techniques, a famous case story, modern revival, global exhibitions, conservation challenges, and the ways young people can keep the tradition alive. Choose a tab to explore by colour family or by region.",
     ["indigo · woad · shibori", "of leaves, roots, bark", "carminic acid", "ten living colours"],
+    extra_class="is-collection",
 )}
 
   <div class="shell" id="youth">
@@ -958,6 +974,7 @@ def youth_page() -> str:
     "Every tradition in this collection survives only if a new generation takes it up. Gathered below are all fifty actions from the ten posters — practical ways for students and youth groups to grow dye plants, record elders' knowledge, run workshops, and carry these living colours forward. Jump to any dye, or scroll through them all.",
     ["grow the plants", "record the elders", "fifty actions", "carry the colour"],
     lede_class="is-black",
+    extra_class="is-youth",
 )}
 
   <div class="shell">
