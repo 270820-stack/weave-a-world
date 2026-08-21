@@ -74,6 +74,20 @@ if (counters.length) {
   counters.forEach((el) => countObserver.observe(el));
 }
 
+// ---------- Splash: cloths weave with the cursor ----------
+const splash = document.querySelector(".splash");
+if (splash && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+  const layers = splash.querySelectorAll(".splash-layer");
+  splash.addEventListener("mousemove", (e) => {
+    const x = (e.clientX / window.innerWidth - 0.5) * 2;
+    const y = (e.clientY / window.innerHeight - 0.5) * 2;
+    layers.forEach((layer, i) => {
+      const depth = (i + 1) * 10;
+      layer.style.transform = `translate(${x * depth}px, ${y * depth}px)`;
+    });
+  });
+}
+
 // ---------- Poster page: table-of-contents scrollspy ----------
 const tocLinks = document.querySelectorAll(".poster-toc a");
 if (tocLinks.length) {

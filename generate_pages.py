@@ -610,7 +610,7 @@ DYES = [
 BYLINE = "By Charles Huang (Hong Kong SAR) · Weave-a-World"
 
 # Bump when css/js change so browsers fetch the new files instead of cached ones
-ASSET_V = "3"
+ASSET_V = "4"
 
 
 def nav(depth: int, active: str) -> str:
@@ -652,7 +652,7 @@ def head(title: str, depth: int, accent=None, accent_deep=None, accent_soft=None
   <title>{html.escape(title)}</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500&family=Nunito:wght@700;800&display=swap" rel="stylesheet" />
   <link rel="icon" type="image/png" href="{p}images/favicon.png" />
   <link rel="stylesheet" href="{p}css/style.css?v={ASSET_V}" />{override}
 </head>"""
@@ -1012,9 +1012,34 @@ def index_page() -> str:
 
     return f"""{head("Weave-a-World · The Living Colours", 0)}
 <body>
+  <section class="splash" aria-label="Weave a World">
+    <div class="splash-bg"></div>
+    <div class="splash-grain" aria-hidden="true"></div>
+    <svg class="splash-waves" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <path d="M-40 420 C 160 280, 280 560, 520 400 S 880 220, 1240 390" />
+      <path d="M-40 470 C 180 330, 300 610, 540 450 S 900 270, 1240 440" />
+      <path d="M-40 520 C 200 380, 320 660, 560 500 S 920 320, 1240 490" />
+    </svg>
+    <p class="splash-kicker">01 · living colours</p>
+    <div class="splash-layer splash-behind" aria-hidden="true">
+      <img class="cloth cloth-a" src="images/cloth-1.png" alt="" />
+      <img class="cloth cloth-b" src="images/cloth-2.png" alt="" />
+    </div>
+    <h1 class="splash-title splash-title-back">weave a world</h1>
+    <div class="splash-layer splash-through" aria-hidden="true">
+      <img class="cloth cloth-c" src="images/cloth-3.png" alt="" />
+      <img class="cloth cloth-d" src="images/cloth-1.png" alt="" />
+    </div>
+    <h1 class="splash-title splash-title-front" aria-hidden="true">weave a world</h1>
+    <div class="splash-layer splash-over" aria-hidden="true">
+      <img class="cloth cloth-e" src="images/cloth-2.png" alt="" />
+    </div>
+    <a class="splash-scroll" href="#intro">enter the collection</a>
+  </section>
+
 {nav(0, 'home')}
 
-  <header class="hero-home">
+  <header class="hero-home" id="intro">
     <div class="shell hero-home-grid">
       <div>
         <img class="hero-logo" src="images/logo.png" alt="Weave-a-World logo: two globes with continents made of textile patterns" />

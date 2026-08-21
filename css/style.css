@@ -113,6 +113,227 @@ a:hover { color: var(--accent-deep); }
 }
 
 /* ============================================================
+   SPLASH · opening title
+   ============================================================ */
+.splash {
+  position: relative;
+  isolation: isolate;
+  height: 100vh;
+  min-height: 640px;
+  overflow: hidden;
+  background: #1a160e;
+  color: #f3ece0;
+}
+.splash-bg {
+  position: absolute;
+  inset: -8%;
+  background: url("../images/splash-bg.jpg") center 42% / cover no-repeat;
+  animation: splash-kenburns 28s ease-in-out infinite alternate;
+  z-index: 0;
+}
+@keyframes splash-kenburns {
+  from { transform: scale(1) translate(0, 0); }
+  to { transform: scale(1.08) translate(-1.4%, 1%); }
+}
+.splash-grain {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.28;
+  mix-blend-mode: overlay;
+  background-image:
+    repeating-linear-gradient(0deg, rgba(255,255,255,0.03) 0 1px, transparent 1px 3px),
+    repeating-linear-gradient(90deg, rgba(0,0,0,0.05) 0 1px, transparent 1px 4px);
+}
+.splash-grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(125deg, rgba(12,10,6,0.55) 0%, transparent 38%, rgba(212,168,72,0.12) 52%, transparent 66%, rgba(8,6,4,0.7) 100%);
+}
+.splash::before,
+.splash::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0;
+  height: 18px;
+  z-index: 8;
+  pointer-events: none;
+  background-image: repeating-linear-gradient(
+    90deg,
+    #8a6a32 0 10px,
+    transparent 10px 18px,
+    #5c4520 18px 22px,
+    transparent 22px 30px
+  );
+  opacity: 0.45;
+}
+.splash::before { top: 0; }
+.splash::after { bottom: 0; }
+
+.splash-waves {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.18;
+}
+.splash-waves path {
+  fill: none;
+  stroke: #d4b46a;
+  stroke-width: 1.2;
+  animation: wave-drift 18s ease-in-out infinite alternate;
+}
+.splash-waves path:nth-child(2) { animation-delay: -4s; opacity: 0.7; }
+.splash-waves path:nth-child(3) { animation-delay: -8s; opacity: 0.45; }
+@keyframes wave-drift {
+  from { transform: translateX(-18px) translateY(6px); }
+  to { transform: translateX(22px) translateY(-10px); }
+}
+
+.splash-kicker {
+  position: absolute;
+  top: 2.4rem;
+  left: clamp(1.2rem, 4vw, 3rem);
+  z-index: 7;
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  letter-spacing: 0.42em;
+  text-transform: lowercase;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  color: rgba(243, 236, 224, 0.72);
+}
+
+.splash-title {
+  position: absolute;
+  left: 50%;
+  top: 52%;
+  transform: translate(-50%, -50%);
+  width: 92vw;
+  margin: 0;
+  text-align: center;
+  font-family: "Nunito", var(--sans);
+  font-weight: 800;
+  font-size: clamp(3.4rem, 11vw, 9.4rem);
+  line-height: 0.92;
+  letter-spacing: -0.04em;
+  text-transform: lowercase;
+  color: #f6f0e6;
+  text-shadow: 0 18px 40px rgba(0,0,0,0.35);
+}
+.splash-title-back { z-index: 3; }
+.splash-title-front {
+  z-index: 5;
+  clip-path: inset(0 0 46% 0);
+  pointer-events: none;
+}
+
+.splash-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  transition: transform 0.45s ease-out;
+}
+.splash-behind { z-index: 2; }
+.splash-through { z-index: 4; }
+.splash-over { z-index: 6; }
+
+.cloth {
+  position: absolute;
+  max-width: none;
+  filter: drop-shadow(0 18px 28px rgba(90, 8, 16, 0.45));
+  will-change: transform, opacity;
+  animation: cloth-in 2.4s cubic-bezier(0.22, 0.8, 0.28, 1) both, cloth-drift 16s ease-in-out 2.4s infinite alternate;
+}
+.cloth-a {
+  width: min(78vw, 920px);
+  left: -8%;
+  top: 18%;
+  transform: rotate(-18deg);
+  --dx: -18vw; --dy: 8vh; --rot: -28deg;
+  animation-delay: 0.15s, 2.55s;
+}
+.cloth-b {
+  width: min(62vw, 760px);
+  right: -12%;
+  top: -6%;
+  transform: rotate(22deg);
+  --dx: 16vw; --dy: -10vh; --rot: 32deg;
+  animation-delay: 0.45s, 2.85s;
+}
+.cloth-c {
+  width: min(34vw, 420px);
+  left: 38%;
+  top: 8%;
+  transform: rotate(8deg);
+  --dx: 6vw; --dy: -14vh; --rot: 14deg;
+  animation-delay: 0.7s, 3.1s;
+}
+.cloth-d {
+  width: min(70vw, 880px);
+  left: 8%;
+  bottom: -18%;
+  transform: rotate(12deg);
+  --dx: -10vw; --dy: 12vh; --rot: 4deg;
+  animation-delay: 0.35s, 2.75s;
+}
+.cloth-e {
+  width: min(48vw, 560px);
+  right: -6%;
+  top: 42%;
+  transform: rotate(-8deg);
+  --dx: 14vw; --dy: 6vh; --rot: -16deg;
+  animation-delay: 0.9s, 3.3s;
+}
+@keyframes cloth-in {
+  from {
+    opacity: 0;
+    translate: var(--dx) var(--dy);
+    rotate: var(--rot);
+    scale: 0.92;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+    rotate: 0deg;
+    scale: 1;
+  }
+}
+@keyframes cloth-drift {
+  from { translate: 0 0; rotate: 0deg; }
+  to { translate: 28px -22px; rotate: 4deg; }
+}
+
+.splash-scroll {
+  position: absolute;
+  bottom: 2.6rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9;
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  letter-spacing: 0.34em;
+  text-transform: lowercase;
+  color: rgba(243, 236, 224, 0.82);
+  padding-bottom: 1.4rem;
+}
+.splash-scroll:hover { color: #f6f0e6; }
+.splash-scroll::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 1px;
+  height: 18px;
+  background: rgba(243, 236, 224, 0.7);
+  animation: cue-drop 1.8s ease-in-out infinite;
+}
+
+/* ============================================================
    HOME PAGE
    ============================================================ */
 .hero-home {
@@ -610,7 +831,9 @@ a:hover { color: var(--accent-deep); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .about-hero-bg, .orb, .mv-icon, .about-cta, .scroll-cue span, .ticker-track { animation: none; }
+  .about-hero-bg, .orb, .mv-icon, .about-cta, .scroll-cue span, .ticker-track,
+  .splash-bg, .splash-waves path, .cloth, .splash-scroll::after { animation: none !important; }
+  .cloth { opacity: 1; }
 }
 
 /* ============================================================
@@ -705,7 +928,9 @@ a:hover { color: var(--accent-deep); }
 .youth-block .youth-list li { background: var(--paper); }
 
 @media (max-width: 640px) {
-  .youth-block-head { flex-wrap: wrap; }
+  .splash-kicker { display: none; }
+  .cloth-e { display: none; }
+  .splash-title { font-size: clamp(3rem, 16vw, 4.6rem); }
 }
 
 /* ============================================================
