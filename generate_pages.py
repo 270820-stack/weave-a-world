@@ -610,7 +610,7 @@ DYES = [
 BYLINE = "By Charles Huang (Hong Kong SAR) · Weave-a-World"
 
 # Bump when css/js change so browsers fetch the new files instead of cached ones
-ASSET_V = "4"
+ASSET_V = "5"
 
 
 def nav(depth: int, active: str) -> str:
@@ -1012,6 +1012,8 @@ def index_page() -> str:
 
     return f"""{head("Weave-a-World · The Living Colours", 0)}
 <body>
+{nav(0, 'home')}
+
   <section class="splash" aria-label="Weave a World">
     <div class="splash-bg"></div>
     <div class="splash-grain" aria-hidden="true"></div>
@@ -1036,8 +1038,6 @@ def index_page() -> str:
     </div>
     <a class="splash-scroll" href="#intro">enter the collection</a>
   </section>
-
-{nav(0, 'home')}
 
   <header class="hero-home" id="intro">
     <div class="shell hero-home-grid">
