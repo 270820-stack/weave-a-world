@@ -654,8 +654,16 @@ a:hover { color: var(--accent-deep); }
 
 /* Ten Dyes — colour-bar masthead */
 .page-masthead.is-collection {
-  background: #2a231c;
+  background: #2a231c url("../images/collection-hero.jpg") center 42% / cover no-repeat;
   min-height: min(72vh, 680px);
+}
+.page-masthead.is-collection::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(34, 28, 23, 0.28) 0%, rgba(34, 28, 23, 0.18) 40%, rgba(34, 28, 23, 0.55) 100%);
+  pointer-events: none;
+  z-index: 0;
 }
 .page-masthead.is-collection .eyebrow { color: var(--gold); }
 .page-masthead.is-collection .masthead-aside { color: rgba(247, 242, 234, 0.45); }
@@ -682,8 +690,8 @@ a:hover { color: var(--accent-deep); }
   font-family: "Nunito", var(--sans);
   font-weight: 800;
   letter-spacing: 0.04em;
-  color: var(--paper);
-  text-shadow: 0 8px 20px rgba(34, 28, 23, 0.18);
+  color: var(--ink);
+  text-shadow: none;
 }
 .page-masthead.is-collection .masthead-script {
   color: var(--paper);
