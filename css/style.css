@@ -350,6 +350,24 @@ a:hover { color: var(--accent-deep); }
   animation: cue-drop 1.8s ease-in-out infinite;
 }
 
+.side-textiles {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  overflow: hidden;
+}
+.side-cloth {
+  position: absolute;
+  max-width: none;
+  opacity: 0.82;
+  filter: drop-shadow(0 14px 22px rgba(40, 32, 14, 0.28));
+}
+
+@media (max-width: 960px) {
+  .side-textiles { display: none; }
+}
+
 /* ============================================================
    HOME PAGE
    ============================================================ */

@@ -610,7 +610,7 @@ DYES = [
 BYLINE = "By Charles Huang (Hong Kong SAR) · Weave-a-World"
 
 # Bump when css/js change so browsers fetch the new files instead of cached ones
-ASSET_V = "6"
+ASSET_V = "7"
 
 
 def nav(depth: int, active: str) -> str:
@@ -1019,7 +1019,19 @@ def index_page() -> str:
       </a>""")
 
     return f"""{head("Weave-a-World · The Living Colours", 0)}
-<body>
+<body class="home">
+  <div class="side-textiles" aria-hidden="true">
+    <img class="side-cloth" src="images/cloth-1.png" style="top:4%; left:-4%; width:min(26vw,280px); transform:rotate(-22deg)" alt="" />
+    <img class="side-cloth" src="images/cloth-3.png" style="top:7%; right:-3%; width:min(18vw,200px); transform:rotate(12deg)" alt="" />
+    <img class="side-cloth" src="images/cloth-2.png" style="top:22%; left:-6%; width:min(24vw,260px); transform:rotate(16deg)" alt="" />
+    <img class="side-cloth" src="images/cloth-1.png" style="top:26%; right:-8%; width:min(28vw,300px); transform:rotate(-14deg)" alt="" />
+    <img class="side-cloth" src="images/cloth-3.png" style="top:42%; left:-2%; width:min(16vw,180px); transform:rotate(-8deg)" alt="" />
+    <img class="side-cloth" src="images/cloth-2.png" style="top:48%; right:-5%; width:min(22vw,240px); transform:rotate(24deg)" alt="" />
+    <img class="side-cloth" src="images/cloth-1.png" style="top:62%; left:-7%; width:min(27vw,290px); transform:rotate(9deg)" alt="" />
+    <img class="side-cloth" src="images/cloth-3.png" style="top:66%; right:-4%; width:min(20vw,220px); transform:rotate(-18deg)" alt="" />
+    <img class="side-cloth" src="images/cloth-2.png" style="top:80%; left:-5%; width:min(23vw,250px); transform:rotate(-26deg)" alt="" />
+    <img class="side-cloth" src="images/cloth-1.png" style="top:84%; right:-7%; width:min(26vw,280px); transform:rotate(11deg)" alt="" />
+  </div>
 {nav(0, 'home')}
 
   <section class="splash" aria-label="Weave a World">
