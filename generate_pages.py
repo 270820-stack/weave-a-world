@@ -610,7 +610,7 @@ DYES = [
 BYLINE = "By Charles Huang (Hong Kong SAR) · Weave-a-World"
 
 # Bump when css/js change so browsers fetch the new files instead of cached ones
-ASSET_V = "5"
+ASSET_V = "6"
 
 
 def nav(depth: int, active: str) -> str:
@@ -636,13 +636,21 @@ def footer(depth: int = 0) -> str:
   </footer>"""
 
 
-def head(title: str, depth: int, accent=None, accent_deep=None, accent_soft=None) -> str:
+def head(title: str, depth: int, accent=None, accent_deep=None, accent_soft=None, pattern=None) -> str:
     p = "../" if depth else ""
-    override = ""
-    if accent:
-        override = f"""
+    pattern_file = pattern or "atlas.jpg"
+    pattern_url = f"{p}images/patterns/{pattern_file}"
+    override = f"""
   <style>
-    :root {{ --accent: {accent}; --accent-deep: {accent_deep}; --accent-soft: {accent_soft}; }}
+    :root {{
+      --page-pattern: url("{pattern_url}");"""
+    if accent:
+        override += f"""
+      --accent: {accent};
+      --accent-deep: {accent_deep};
+      --accent-soft: {accent_soft};"""
+    override += """
+    }
   </style>"""
     return f"""<!DOCTYPE html>
 <html lang="en">
@@ -734,7 +742,7 @@ def poster_page(i: int, dye: dict) -> str:
 
     palette = "".join(f'<span style="background:{c}"></span>' for c in dye["palette"])
 
-    return f"""{head(f"{dye['living']}: {dye['title']} · Weave-a-World", 1, dye['accent'], dye['accent_deep'], dye['accent_soft'])}
+    return f"""{head(f"{dye['living']}: {dye['title']} · Weave-a-World", 1, dye['accent'], dye['accent_deep'], dye['accent_soft'], f"{dye['slug']}.jpg")}
 <body>
 {nav(1, 'collection')}
 
@@ -824,7 +832,7 @@ def collection_page() -> str:
         for key, label in tabs
     )
 
-    return f"""{head("The Ten Dyes · Weave-a-World", 0)}
+    return f"""{head("The Ten Dyes · Weave-a-World", 0, pattern="atlas.jpg")}
 <body>
 {nav(0, 'collection')}
 
