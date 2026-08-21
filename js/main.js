@@ -88,7 +88,79 @@ if (splash && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
   });
 }
 
-// ---------- Poster page: table-of-contents scrollspy ----------
+// ---------- Dye-page textile wipe ----------
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+function isDyeHref(href) {
+  try {
+    return /\/dyes\/[^/]+\.html$/.test(new URL(href, location.href).pathname);
+  } catch {
+    return false;
+  }
+}
+
+function clothBase() {
+  return location.pathname.includes("/dyes/") ? "../images/" : "images/";
+}
+
+function ensureWipe() {
+  let el = document.querySelector(".dye-wipe");
+  if (el) return el;
+  el = document.createElement("div");
+  el.className = "dye-wipe";
+  el.setAttribute("aria-hidden", "true");
+  const base = clothBase();
+  const files = ["cloth-1.png", "cloth-2.png", "cloth-3.png", "cloth-1.png", "cloth-2.png"];
+  el.innerHTML = files
+    .map((file, i) => `<img class="dye-wipe-cloth c${i + 1}" src="${base}${file}" alt="" />`)
+    .join("");
+  document.body.appendChild(el);
+  return el;
+}
+
+function playWipeIn(then) {
+  const wipe = ensureWipe();
+  wipe.classList.remove("out", "cover");
+  wipe.classList.add("active");
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => wipe.classList.add("in"));
+  });
+  setTimeout(then, 620);
+}
+
+function playWipeOut() {
+  const wipe = ensureWipe();
+  wipe.classList.add("active", "cover");
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      wipe.classList.remove("cover");
+      wipe.classList.add("out");
+    });
+  });
+  setTimeout(() => wipe.classList.remove("active", "out", "in"), 640);
+}
+
+document.addEventListener("click", (e) => {
+  const a = e.target.closest("a[href]");
+  if (!a || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || a.target === "_blank") return;
+  if (!isDyeHref(a.href)) return;
+  const dest = new URL(a.href, location.href);
+  if (dest.pathname === location.pathname && dest.hash) return;
+  e.preventDefault();
+  sessionStorage.setItem("dye-wipe", "1");
+  if (reduceMotion) {
+    location.href = a.href;
+    return;
+  }
+  playWipeIn(() => {
+    location.href = a.href;
+  });
+});
+
+if (sessionStorage.getItem("dye-wipe")) {
+  sessionStorage.removeItem("dye-wipe");
+  if (!reduceMotion) playWipeOut();
+}
 const tocLinks = document.querySelectorAll(".poster-toc a");
 if (tocLinks.length) {
   const sections = Array.from(tocLinks).map((a) =>
