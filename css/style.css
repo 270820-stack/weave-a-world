@@ -654,7 +654,7 @@ a:hover { color: var(--accent-deep); }
 
 /* Ten Dyes — colour-bar masthead */
 .page-masthead.is-collection {
-  background: #2a231c url("../images/collection-hero.jpg") center 42% / cover no-repeat;
+  background: #2a231c url("../images/collection-hero.jpg") center center / cover no-repeat;
   min-height: min(72vh, 680px);
 }
 .page-masthead.is-collection::before {
@@ -690,8 +690,8 @@ a:hover { color: var(--accent-deep); }
   font-family: "Nunito", var(--sans);
   font-weight: 800;
   letter-spacing: 0.04em;
-  color: var(--ink);
-  text-shadow: none;
+  color: #fff;
+  text-shadow: 0 2px 0 rgba(34, 28, 23, 0.18);
 }
 .page-masthead.is-collection .masthead-script {
   color: var(--paper);
