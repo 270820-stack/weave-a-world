@@ -639,6 +639,7 @@ a:hover { color: var(--accent-deep); }
   color: var(--ink-soft);
   font-size: 1.12rem;
 }
+.masthead-lede.is-black { color: #000; }
 .collection-hero { padding: clamp(3.2rem, 7vw, 5rem) 0 2.2rem; }
 .collection-hero h1 { font-family: var(--display); font-size: clamp(2.3rem, 5vw, 3.6rem); font-weight: 700; line-height: 1.1; }
 .collection-hero p { margin-top: 1.1rem; max-width: 62ch; color: var(--ink-soft); }

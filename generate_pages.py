@@ -610,7 +610,7 @@ DYES = [
 BYLINE = "By Charles Huang (Hong Kong SAR) · Weave-a-World"
 
 # Bump when css/js change so browsers fetch the new files instead of cached ones
-ASSET_V = "15"
+ASSET_V = "16"
 
 
 def wipe_boot() -> str:
@@ -701,7 +701,7 @@ def head(title: str, depth: int, accent=None, accent_deep=None, accent_soft=None
 </head>"""
 
 
-def page_masthead(eyebrow: str, solid: str, script: str, lede: str, asides: list[str]) -> str:
+def page_masthead(eyebrow: str, solid: str, script: str, lede: str, asides: list[str], lede_class: str = "") -> str:
     floats = "\n".join(
         f'    <p class="masthead-aside a{i + 1}">{html.escape(text)}</p>'
         for i, text in enumerate(asides)
@@ -721,7 +721,7 @@ def page_masthead(eyebrow: str, solid: str, script: str, lede: str, asides: list
         <span class="masthead-solid">{html.escape(solid)}</span>
         <em class="masthead-script">{html.escape(script)}</em>
       </h1>
-      <p class="masthead-lede">{html.escape(lede)}</p>
+      <p class="masthead-lede{(' ' + lede_class) if lede_class else ''}">{html.escape(lede)}</p>
     </div>
   </header>"""
 
@@ -957,6 +957,7 @@ def youth_page() -> str:
     "keep them alive",
     "Every tradition in this collection survives only if a new generation takes it up. Gathered below are all fifty actions from the ten posters — practical ways for students and youth groups to grow dye plants, record elders' knowledge, run workshops, and carry these living colours forward. Jump to any dye, or scroll through them all.",
     ["grow the plants", "record the elders", "fifty actions", "carry the colour"],
+    lede_class="is-black",
 )}
 
   <div class="shell">
