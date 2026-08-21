@@ -610,7 +610,7 @@ DYES = [
 BYLINE = "By Charles Huang (Hong Kong SAR) · Weave-a-World"
 
 # Bump when css/js change so browsers fetch the new files instead of cached ones
-ASSET_V = "14"
+ASSET_V = "15"
 
 
 def wipe_boot() -> str:
@@ -695,10 +695,35 @@ def head(title: str, depth: int, accent=None, accent_deep=None, accent_soft=None
   <title>{html.escape(title)}</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500&family=Nunito:wght@700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500;1,700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,600&family=Jost:wght@300;400;500&family=Nunito:wght@700;800&display=swap" rel="stylesheet" />
   <link rel="icon" type="image/png" href="{p}images/favicon.png" />
   <link rel="stylesheet" href="{p}css/style.css?v={ASSET_V}" />{override}
 </head>"""
+
+
+def page_masthead(eyebrow: str, solid: str, script: str, lede: str, asides: list[str]) -> str:
+    floats = "\n".join(
+        f'    <p class="masthead-aside a{i + 1}">{html.escape(text)}</p>'
+        for i, text in enumerate(asides)
+    )
+    return f"""  <header class="page-masthead">
+    <div class="masthead-slashes" aria-hidden="true">
+      <span class="masthead-slash s1"></span>
+      <span class="masthead-slash s2"></span>
+      <span class="masthead-slash s3"></span>
+    </div>
+    <img class="masthead-ribbon r1" src="images/cloth-ribbon.png" alt="" />
+    <img class="masthead-ribbon r2" src="images/cloth-ribbon.png" alt="" />
+{floats}
+    <div class="shell masthead-core">
+      <p class="eyebrow">{html.escape(eyebrow)}</p>
+      <h1 class="masthead-title">
+        <span class="masthead-solid">{html.escape(solid)}</span>
+        <em class="masthead-script">{html.escape(script)}</em>
+      </h1>
+      <p class="masthead-lede">{html.escape(lede)}</p>
+    </div>
+  </header>"""
 
 
 def poster_page(i: int, dye: dict) -> str:
@@ -873,13 +898,13 @@ def collection_page() -> str:
 {wipe_boot()}
 {nav(0, 'collection')}
 
-  <header class="collection-hero">
-    <div class="shell">
-      <p class="eyebrow">The Collection</p>
-      <h1>Ten Dyes, Ten Living Traditions</h1>
-      <p>Each poster below explores one natural dye through nine lenses — its overview, cultural significance, chemistry, traditional techniques, a famous case story, modern revival, global exhibitions, conservation challenges, and the ways young people can keep the tradition alive. Choose a tab to explore by colour family or by region.</p>
-    </div>
-  </header>
+{page_masthead(
+    "The Collection",
+    "Ten Dyes",
+    "living traditions",
+    "Each poster below explores one natural dye through nine lenses — its overview, cultural significance, chemistry, traditional techniques, a famous case story, modern revival, global exhibitions, conservation challenges, and the ways young people can keep the tradition alive. Choose a tab to explore by colour family or by region.",
+    ["indigo · woad · shibori", "of leaves, roots, bark", "carminic acid", "ten living colours"],
+)}
 
   <div class="shell" id="youth">
     <div class="tabs" role="tablist" aria-label="Filter the dye collection">
@@ -926,13 +951,13 @@ def youth_page() -> str:
 {wipe_boot()}
 {nav(0, 'youth')}
 
-  <header class="collection-hero">
-    <div class="shell">
-      <p class="eyebrow">Youth Action</p>
-      <h1>How Young People Can Preserve the World's Dyes</h1>
-      <p>Every tradition in this collection survives only if a new generation takes it up. Gathered below are all fifty actions from the ten posters — practical ways for students and youth groups to grow dye plants, record elders' knowledge, run workshops, and carry these living colours forward. Jump to any dye, or scroll through them all.</p>
-    </div>
-  </header>
+{page_masthead(
+    "Youth Action",
+    "Youth Action",
+    "keep them alive",
+    "Every tradition in this collection survives only if a new generation takes it up. Gathered below are all fifty actions from the ten posters — practical ways for students and youth groups to grow dye plants, record elders' knowledge, run workshops, and carry these living colours forward. Jump to any dye, or scroll through them all.",
+    ["grow the plants", "record the elders", "fifty actions", "carry the colour"],
+)}
 
   <div class="shell">
     <nav class="youth-chips" aria-label="Jump to a dye">
