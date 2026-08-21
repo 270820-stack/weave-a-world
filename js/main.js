@@ -99,19 +99,14 @@ function isDyeHref(href) {
   }
 }
 
-function clothBase() {
-  return location.pathname.includes("/dyes/") ? "../images/" : "images/";
-}
-
 function ensureWipe() {
   let el = document.querySelector(".dye-wipe");
   if (el) return el;
   el = document.createElement("div");
   el.className = "dye-wipe";
   el.setAttribute("aria-hidden", "true");
-  const src = `${clothBase()}cloth-ribbon.png`;
-  el.innerHTML = [1, 2, 3, 4, 5, 6, 7, 8]
-    .map((i) => `<img class="dye-wipe-cloth c${i}" src="${src}" alt="" />`)
+  el.innerHTML = ["h1", "h2", "h3", "v1", "v2", "v3", "v4"]
+    .map((name) => `<span class="dye-wipe-sash ${name}"></span>`)
     .join("");
   document.body.appendChild(el);
   return el;
