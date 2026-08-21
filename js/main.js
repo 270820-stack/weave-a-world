@@ -112,22 +112,36 @@ function ensureWipe() {
   return el;
 }
 
+const SASH_MS = 1200;
+const SASH_SWAP = 520;
+
 function playWipeIn(then) {
   const wipe = ensureWipe();
+  wipe.style.setProperty("--seek", "0ms");
   wipe.className = "dye-wipe active";
   requestAnimationFrame(() => {
-    requestAnimationFrame(() => wipe.classList.add("through"));
+    sessionStorage.setItem("dye-wipe-start", String(Date.now()));
+    wipe.classList.add("through");
+    setTimeout(then, SASH_SWAP);
   });
-  setTimeout(then, 400);
 }
 
 function playWipeOut() {
   const wipe = ensureWipe();
-  wipe.className = "dye-wipe active through continue";
-  setTimeout(() => wipe.classList.add("done"), 480);
+  const start = Number(sessionStorage.getItem("dye-wipe-start") || Date.now());
+  const elapsed = Date.now() - start;
+  if (elapsed >= SASH_MS - 30) {
+    wipe.className = "dye-wipe";
+    return;
+  }
+  wipe.style.setProperty("--seek", `${-elapsed}ms`);
+  wipe.className = "dye-wipe active through";
+  const remaining = SASH_MS - elapsed;
+  setTimeout(() => wipe.classList.add("done"), Math.max(0, remaining - 100));
   setTimeout(() => {
     wipe.className = "dye-wipe";
-  }, 680);
+    wipe.style.removeProperty("--seek");
+  }, remaining + 80);
 }
 
 document.addEventListener("click", (e) => {
