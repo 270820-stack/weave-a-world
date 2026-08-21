@@ -610,7 +610,7 @@ DYES = [
 BYLINE = "By Charles Huang (Hong Kong SAR) · Weave-a-World"
 
 # Bump when css/js change so browsers fetch the new files instead of cached ones
-ASSET_V = "22"
+ASSET_V = "23"
 
 
 def wipe_boot() -> str:
@@ -716,7 +716,7 @@ def page_masthead(
     )
     is_collection = "is-collection" in extra_class
     extras = (
-        """    <div class="masthead-bar bar-main" aria-hidden="true"></div>
+        """    <img class="masthead-ribbon r1" src="images/yellow-sash.png" alt="" />
     <div class="masthead-bar bar-accent" aria-hidden="true"></div>"""
         if is_collection
         else """    <div class="masthead-slashes" aria-hidden="true">
