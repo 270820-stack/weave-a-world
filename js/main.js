@@ -124,9 +124,10 @@ function playWipeIn(then) {
 function playWipeOut() {
   const wipe = ensureWipe();
   wipe.className = "dye-wipe active through continue";
+  setTimeout(() => wipe.classList.add("done"), 480);
   setTimeout(() => {
     wipe.className = "dye-wipe";
-  }, 520);
+  }, 680);
 }
 
 document.addEventListener("click", (e) => {
