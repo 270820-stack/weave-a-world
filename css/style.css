@@ -694,8 +694,8 @@ a:hover { color: var(--accent-deep); }
   text-shadow: 0 2px 0 rgba(34, 28, 23, 0.18);
 }
 .page-masthead.is-collection .masthead-script {
-  color: var(--paper);
-  text-shadow: 0 8px 18px rgba(34, 28, 23, 0.2);
+  color: #000;
+  text-shadow: none;
 }
 .page-masthead.is-collection .masthead-lede {
   color: #f3ebe0;
