@@ -654,14 +654,14 @@ a:hover { color: var(--accent-deep); }
 
 /* Ten Dyes — colour-bar masthead */
 .page-masthead.is-collection {
-  background: #2a231c url("../images/collection-hero.jpg") center center / cover no-repeat;
+  background: #2a231c url("../images/collection-hero.jpg?v=21") center center / cover no-repeat;
   min-height: min(72vh, 680px);
 }
 .page-masthead.is-collection::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(34, 28, 23, 0.28) 0%, rgba(34, 28, 23, 0.18) 40%, rgba(34, 28, 23, 0.55) 100%);
+  background: linear-gradient(180deg, rgba(34, 28, 23, 0.18) 0%, rgba(34, 28, 23, 0.08) 40%, rgba(34, 28, 23, 0.42) 100%);
   pointer-events: none;
   z-index: 0;
 }
