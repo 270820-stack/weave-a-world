@@ -625,7 +625,7 @@ a:hover { color: var(--accent-deep); }
 .dye-card-cta { font-family: var(--sans); font-size: 0.76rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--c1); margin-top: 0.4rem; }
 .dye-card:hover .dye-card-cta { text-decoration: underline; text-underline-offset: 4px; }
 
-/* Dye-page textile wipe */
+/* Dye-page textile weave-through */
 .dye-wipe {
   position: fixed;
   inset: 0;
@@ -638,43 +638,29 @@ a:hover { color: var(--accent-deep); }
   visibility: visible;
   pointer-events: auto;
 }
-.dye-wipe::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: #f3eee4;
-  opacity: 0;
-  transition: opacity 0.28s ease;
-}
-.dye-wipe.in::before,
-.dye-wipe.cover::before { opacity: 0.88; }
-.dye-wipe.out::before { opacity: 0; transition-delay: 0.12s; }
-
 .dye-wipe-cloth {
   position: absolute;
+  left: 0;
+  width: 160vw;
   max-width: none;
-  opacity: 0;
-  filter: drop-shadow(0 18px 28px rgba(40, 32, 14, 0.35));
-  transition: transform 0.58s cubic-bezier(0.22, 0.82, 0.2, 1), opacity 0.4s ease;
+  height: auto;
+  opacity: 1;
+  filter: drop-shadow(0 10px 18px rgba(40, 32, 14, 0.28));
+  will-change: transform;
+  animation: weave-through 0.85s linear both;
 }
-.dye-wipe .c1 { width: min(78vw, 860px); top: -18%; left: -28%; transform: rotate(-24deg) translate(-70%, -30%); }
-.dye-wipe .c2 { width: min(72vw, 800px); top: -8%; right: -32%; transform: rotate(18deg) translate(70%, -40%); }
-.dye-wipe .c3 { width: min(42vw, 460px); top: 18%; left: 28%; transform: rotate(8deg) translate(0, -80%); }
-.dye-wipe .c4 { width: min(80vw, 900px); bottom: -22%; left: -18%; transform: rotate(12deg) translate(-60%, 50%); }
-.dye-wipe .c5 { width: min(64vw, 720px); bottom: -10%; right: -24%; transform: rotate(-14deg) translate(70%, 40%); }
+.dye-wipe .c1 { top: 16%; --r: -7deg; animation-delay: 0s; z-index: 1; }
+.dye-wipe .c2 { top: 42%; --r: 5deg; animation-delay: 0.05s; z-index: 3; }
+.dye-wipe .c3 { top: 68%; --r: -4deg; animation-delay: 0.1s; z-index: 2; }
 
-.dye-wipe.in .c1, .dye-wipe.cover .c1 { opacity: 1; transform: rotate(-16deg) translate(18%, 22%); }
-.dye-wipe.in .c2, .dye-wipe.cover .c2 { opacity: 1; transform: rotate(12deg) translate(-16%, 20%); transition-delay: 0.04s; }
-.dye-wipe.in .c3, .dye-wipe.cover .c3 { opacity: 1; transform: rotate(6deg) translate(0, 10%); transition-delay: 0.08s; }
-.dye-wipe.in .c4, .dye-wipe.cover .c4 { opacity: 1; transform: rotate(10deg) translate(12%, -18%); transition-delay: 0.06s; }
-.dye-wipe.in .c5, .dye-wipe.cover .c5 { opacity: 1; transform: rotate(-10deg) translate(-14%, -16%); transition-delay: 0.1s; }
+.dye-wipe.continue .c1 { animation-delay: -0.4s; }
+.dye-wipe.continue .c2 { animation-delay: -0.35s; }
+.dye-wipe.continue .c3 { animation-delay: -0.3s; }
 
-.dye-wipe.cover .dye-wipe-cloth { transition: none; }
-.dye-wipe.out .c1 { opacity: 0; transform: rotate(-8deg) translate(110%, -40%); }
-.dye-wipe.out .c2 { opacity: 0; transform: rotate(22deg) translate(-110%, -30%); }
-.dye-wipe.out .c3 { opacity: 0; transform: rotate(4deg) translate(20%, 90%); }
-.dye-wipe.out .c4 { opacity: 0; transform: rotate(18deg) translate(-100%, 40%); }
-.dye-wipe.out .c5 { opacity: 0; transform: rotate(-20deg) translate(100%, 35%); }
+@keyframes weave-through {
+  from { transform: translateX(-105%) rotate(var(--r)); }
+  to { transform: translateX(105%) rotate(var(--r)); }
+}
 
 /* ============================================================
    ABOUT US PAGE
@@ -920,7 +906,7 @@ a:hover { color: var(--accent-deep); }
   .about-hero-bg, .orb, .mv-icon, .about-cta, .scroll-cue span, .ticker-track,
   .splash-bg, .splash-waves path, .cloth, .splash-scroll::after { animation: none !important; }
   .cloth { opacity: 1; }
-  .dye-wipe-cloth, .dye-wipe::before { transition: none !important; }
+  .dye-wipe-cloth { animation: none !important; }
 }
 
 /* ============================================================

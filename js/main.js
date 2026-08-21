@@ -109,10 +109,9 @@ function ensureWipe() {
   el = document.createElement("div");
   el.className = "dye-wipe";
   el.setAttribute("aria-hidden", "true");
-  const base = clothBase();
-  const files = ["cloth-1.png", "cloth-2.png", "cloth-3.png", "cloth-1.png", "cloth-2.png"];
-  el.innerHTML = files
-    .map((file, i) => `<img class="dye-wipe-cloth c${i + 1}" src="${base}${file}" alt="" />`)
+  const src = `${clothBase()}cloth-ribbon.png`;
+  el.innerHTML = [1, 2, 3]
+    .map((i) => `<img class="dye-wipe-cloth c${i}" src="${src}" alt="" />`)
     .join("");
   document.body.appendChild(el);
   return el;
@@ -120,24 +119,19 @@ function ensureWipe() {
 
 function playWipeIn(then) {
   const wipe = ensureWipe();
-  wipe.classList.remove("out", "cover");
-  wipe.classList.add("active");
+  wipe.className = "dye-wipe active";
   requestAnimationFrame(() => {
-    requestAnimationFrame(() => wipe.classList.add("in"));
+    requestAnimationFrame(() => wipe.classList.add("through"));
   });
-  setTimeout(then, 620);
+  setTimeout(then, 380);
 }
 
 function playWipeOut() {
   const wipe = ensureWipe();
-  wipe.classList.add("active", "cover");
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      wipe.classList.remove("cover");
-      wipe.classList.add("out");
-    });
-  });
-  setTimeout(() => wipe.classList.remove("active", "out", "in"), 640);
+  wipe.className = "dye-wipe active through continue";
+  setTimeout(() => {
+    wipe.className = "dye-wipe";
+  }, 560);
 }
 
 document.addEventListener("click", (e) => {
