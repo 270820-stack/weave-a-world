@@ -708,8 +708,8 @@ a:hover { color: var(--accent-deep); }
   text-shadow: 0 2px 0 rgba(34, 28, 23, 0.18);
 }
 .page-masthead.is-collection .masthead-script {
-  color: #000;
-  text-shadow: none;
+  color: var(--paper);
+  text-shadow: 0 8px 18px rgba(34, 28, 23, 0.2);
 }
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
   .masthead-lede {
