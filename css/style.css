@@ -640,26 +640,71 @@ a:hover { color: var(--accent-deep); }
 }
 .dye-wipe-cloth {
   position: absolute;
-  left: 0;
-  width: 160vw;
   max-width: none;
   height: auto;
   opacity: 1;
   filter: drop-shadow(0 10px 18px rgba(40, 32, 14, 0.28));
   will-change: transform;
-  animation: weave-through 0.85s linear both;
 }
-.dye-wipe .c1 { top: 16%; --r: -7deg; animation-delay: 0s; z-index: 1; }
-.dye-wipe .c2 { top: 42%; --r: 5deg; animation-delay: 0.05s; z-index: 3; }
-.dye-wipe .c3 { top: 68%; --r: -4deg; animation-delay: 0.1s; z-index: 2; }
+.dye-wipe .c1,
+.dye-wipe .c2,
+.dye-wipe .c3,
+.dye-wipe .c4,
+.dye-wipe .c5 {
+  left: 0;
+  width: 170vw;
+  transform: translateX(-110%);
+}
+.dye-wipe .c2,
+.dye-wipe .c4 { transform: translateX(110%); }
+.dye-wipe .c1 { top: 8%; }
+.dye-wipe .c2 { top: 26%; }
+.dye-wipe .c3 { top: 44%; }
+.dye-wipe .c4 { top: 62%; }
+.dye-wipe .c5 { top: 80%; }
+.dye-wipe .c6,
+.dye-wipe .c7,
+.dye-wipe .c8 {
+  top: 50%;
+  width: 160vh;
+}
+.dye-wipe .c6 { left: 16%; transform: translate(-50%, -120%) rotate(90deg); }
+.dye-wipe .c7 { left: 50%; transform: translate(-50%, 120%) rotate(90deg); }
+.dye-wipe .c8 { left: 84%; transform: translate(-50%, -120%) rotate(90deg); }
 
-.dye-wipe.continue .c1 { animation-delay: -0.4s; }
-.dye-wipe.continue .c2 { animation-delay: -0.35s; }
-.dye-wipe.continue .c3 { animation-delay: -0.3s; }
+.dye-wipe.through .c1 { animation: weave-ltr 0.9s linear both; animation-delay: 0s; }
+.dye-wipe.through .c2 { animation: weave-rtl 0.9s linear both; animation-delay: 0.04s; }
+.dye-wipe.through .c3 { animation: weave-ltr 0.9s linear both; animation-delay: 0.08s; }
+.dye-wipe.through .c4 { animation: weave-rtl 0.9s linear both; animation-delay: 0.02s; }
+.dye-wipe.through .c5 { animation: weave-ltr 0.9s linear both; animation-delay: 0.1s; }
+.dye-wipe.through .c6 { animation: weave-ttb 0.9s linear both; animation-delay: 0.05s; }
+.dye-wipe.through .c7 { animation: weave-btt 0.9s linear both; animation-delay: 0.09s; }
+.dye-wipe.through .c8 { animation: weave-ttb 0.9s linear both; animation-delay: 0.01s; }
 
-@keyframes weave-through {
-  from { transform: translateX(-105%) rotate(var(--r)); }
-  to { transform: translateX(105%) rotate(var(--r)); }
+.dye-wipe.continue .c1 { animation-delay: -0.42s; }
+.dye-wipe.continue .c2 { animation-delay: -0.38s; }
+.dye-wipe.continue .c3 { animation-delay: -0.34s; }
+.dye-wipe.continue .c4 { animation-delay: -0.4s; }
+.dye-wipe.continue .c5 { animation-delay: -0.32s; }
+.dye-wipe.continue .c6 { animation-delay: -0.37s; }
+.dye-wipe.continue .c7 { animation-delay: -0.33s; }
+.dye-wipe.continue .c8 { animation-delay: -0.41s; }
+
+@keyframes weave-ltr {
+  from { transform: translateX(-110%); }
+  to { transform: translateX(110%); }
+}
+@keyframes weave-rtl {
+  from { transform: translateX(110%); }
+  to { transform: translateX(-110%); }
+}
+@keyframes weave-ttb {
+  from { transform: translate(-50%, -120%) rotate(90deg); }
+  to { transform: translate(-50%, 120%) rotate(90deg); }
+}
+@keyframes weave-btt {
+  from { transform: translate(-50%, 120%) rotate(90deg); }
+  to { transform: translate(-50%, -120%) rotate(90deg); }
 }
 
 /* ============================================================

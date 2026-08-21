@@ -110,7 +110,7 @@ function ensureWipe() {
   el.className = "dye-wipe";
   el.setAttribute("aria-hidden", "true");
   const src = `${clothBase()}cloth-ribbon.png`;
-  el.innerHTML = [1, 2, 3]
+  el.innerHTML = [1, 2, 3, 4, 5, 6, 7, 8]
     .map((i) => `<img class="dye-wipe-cloth c${i}" src="${src}" alt="" />`)
     .join("");
   document.body.appendChild(el);
@@ -123,7 +123,7 @@ function playWipeIn(then) {
   requestAnimationFrame(() => {
     requestAnimationFrame(() => wipe.classList.add("through"));
   });
-  setTimeout(then, 380);
+  setTimeout(then, 400);
 }
 
 function playWipeOut() {
@@ -131,7 +131,7 @@ function playWipeOut() {
   wipe.className = "dye-wipe active through continue";
   setTimeout(() => {
     wipe.className = "dye-wipe";
-  }, 560);
+  }, 520);
 }
 
 document.addEventListener("click", (e) => {
