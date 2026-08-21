@@ -91,11 +91,14 @@ if (splash && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
 // ---------- Dye-page textile wipe ----------
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-function isDyeHref(href) {
+function isDyeLink(a) {
+  if (a.closest(".pager")) return true;
   try {
-    return /\/dyes\/[^/]+\.html$/.test(new URL(href, location.href).pathname);
+    const path = new URL(a.href, location.href).pathname;
+    return /\/dyes\/[^/]+\.html$/.test(path);
   } catch {
-    return false;
+    const href = a.getAttribute("href") || "";
+    return href.includes("dyes/") && href.endsWith(".html");
   }
 }
 
@@ -127,13 +130,10 @@ function playWipeIn(then) {
 }
 
 function playWipeOut() {
+  if (window.__dyeWipePlaying) return;
   const wipe = ensureWipe();
   const start = Number(sessionStorage.getItem("dye-wipe-start") || Date.now());
-  const elapsed = Date.now() - start;
-  if (elapsed >= SASH_MS - 30) {
-    wipe.className = "dye-wipe";
-    return;
-  }
+  const elapsed = Math.min(Math.max(0, Date.now() - start), SASH_MS - 350);
   wipe.style.setProperty("--seek", `${-elapsed}ms`);
   wipe.className = "dye-wipe active through";
   const remaining = SASH_MS - elapsed;
@@ -147,7 +147,7 @@ function playWipeOut() {
 document.addEventListener("click", (e) => {
   const a = e.target.closest("a[href]");
   if (!a || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || a.target === "_blank") return;
-  if (!isDyeHref(a.href)) return;
+  if (!isDyeLink(a)) return;
   const dest = new URL(a.href, location.href);
   if (dest.pathname === location.pathname && dest.hash) return;
   e.preventDefault();
@@ -159,9 +159,9 @@ document.addEventListener("click", (e) => {
   playWipeIn(() => {
     location.href = a.href;
   });
-});
+}, true);
 
-if (sessionStorage.getItem("dye-wipe")) {
+if (sessionStorage.getItem("dye-wipe") && !window.__dyeWipePlaying) {
   sessionStorage.removeItem("dye-wipe");
   if (!reduceMotion) playWipeOut();
 }

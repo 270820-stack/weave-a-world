@@ -610,7 +610,40 @@ DYES = [
 BYLINE = "By Charles Huang (Hong Kong SAR) · Weave-a-World"
 
 # Bump when css/js change so browsers fetch the new files instead of cached ones
-ASSET_V = "13"
+ASSET_V = "14"
+
+
+def wipe_boot() -> str:
+    spans = "\n".join(
+        f'    <span class="dye-wipe-sash {name}"></span>'
+        for name in ("h1", "h2", "h3", "v1", "v2", "v3", "v4")
+    )
+    return f"""  <div class="dye-wipe" id="dye-wipe" aria-hidden="true">
+{spans}
+  </div>
+  <script>
+  (function () {{
+    if (!sessionStorage.getItem("dye-wipe")) return;
+    sessionStorage.removeItem("dye-wipe");
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    var el = document.getElementById("dye-wipe");
+    if (!el) return;
+    var elapsed = Date.now() - Number(sessionStorage.getItem("dye-wipe-start") || Date.now());
+    if (elapsed < 0) elapsed = 0;
+    if (elapsed > 850) elapsed = 850;
+    el.style.setProperty("--seek", (-elapsed) + "ms");
+    el.className = "dye-wipe active through";
+    window.__dyeWipePlaying = true;
+    var left = 1200 - elapsed;
+    setTimeout(function () {{ el.classList.add("done"); }}, Math.max(0, left - 100));
+    setTimeout(function () {{
+      el.className = "dye-wipe";
+      el.style.removeProperty("--seek");
+      window.__dyeWipePlaying = false;
+    }}, left + 80);
+  }})();
+  </script>
+"""
 
 
 def nav(depth: int, active: str) -> str:
@@ -642,15 +675,17 @@ def head(title: str, depth: int, accent=None, accent_deep=None, accent_soft=None
     pattern_url = f"{p}images/patterns/{pattern_file}"
     override = f"""
   <style>
-    :root {{
-      --page-pattern: url("{pattern_url}");"""
+    :root {{"""
     if accent:
         override += f"""
       --accent: {accent};
       --accent-deep: {accent_deep};
       --accent-soft: {accent_soft};"""
-    override += """
-    }
+    override += f"""
+    }}
+    body::before {{
+      background-image: url("{pattern_url}");
+    }}
   </style>"""
     return f"""<!DOCTYPE html>
 <html lang="en">
@@ -744,6 +779,7 @@ def poster_page(i: int, dye: dict) -> str:
 
     return f"""{head(f"{dye['living']}: {dye['title']} · Weave-a-World", 1, dye['accent'], dye['accent_deep'], dye['accent_soft'], f"{dye['slug']}.jpg")}
 <body>
+{wipe_boot()}
 {nav(1, 'collection')}
 
   <header class="poster-hero">
@@ -834,6 +870,7 @@ def collection_page() -> str:
 
     return f"""{head("The Ten Dyes · Weave-a-World", 0, pattern="atlas.jpg")}
 <body>
+{wipe_boot()}
 {nav(0, 'collection')}
 
   <header class="collection-hero">
@@ -886,6 +923,7 @@ def youth_page() -> str:
 
     return f"""{head("Youth Action · Weave-a-World", 0)}
 <body>
+{wipe_boot()}
 {nav(0, 'youth')}
 
   <header class="collection-hero">
@@ -920,6 +958,7 @@ def about_page() -> str:
     )
     return f"""{head("About Us · Weave-a-World", 0)}
 <body>
+{wipe_boot()}
 {nav(0, 'about')}
 
   <header class="about-hero">
@@ -1020,6 +1059,7 @@ def index_page() -> str:
 
     return f"""{head("Weave-a-World · The Living Colours", 0)}
 <body class="home">
+{wipe_boot()}
   <div class="side-textiles" aria-hidden="true">
     <img class="side-cloth" src="images/cloth-1.png" style="top:4%; left:-4%; width:min(26vw,280px); transform:rotate(-22deg)" alt="" />
     <img class="side-cloth" src="images/cloth-3.png" style="top:7%; right:-3%; width:min(18vw,200px); transform:rotate(12deg)" alt="" />

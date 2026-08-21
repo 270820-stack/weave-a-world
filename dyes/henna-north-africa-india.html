@@ -8,17 +8,51 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500&family=Nunito:wght@700;800&display=swap" rel="stylesheet" />
   <link rel="icon" type="image/png" href="../images/favicon.png" />
-  <link rel="stylesheet" href="../css/style.css?v=13" />
+  <link rel="stylesheet" href="../css/style.css?v=14" />
   <style>
     :root {
-      --page-pattern: url("../images/patterns/henna-north-africa-india.jpg");
       --accent: #8c4a1f;
       --accent-deep: #582b0f;
       --accent-soft: #f6ebe0;
     }
+    body::before {
+      background-image: url("../images/patterns/henna-north-africa-india.jpg");
+    }
   </style>
 </head>
 <body>
+  <div class="dye-wipe" id="dye-wipe" aria-hidden="true">
+    <span class="dye-wipe-sash h1"></span>
+    <span class="dye-wipe-sash h2"></span>
+    <span class="dye-wipe-sash h3"></span>
+    <span class="dye-wipe-sash v1"></span>
+    <span class="dye-wipe-sash v2"></span>
+    <span class="dye-wipe-sash v3"></span>
+    <span class="dye-wipe-sash v4"></span>
+  </div>
+  <script>
+  (function () {
+    if (!sessionStorage.getItem("dye-wipe")) return;
+    sessionStorage.removeItem("dye-wipe");
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    var el = document.getElementById("dye-wipe");
+    if (!el) return;
+    var elapsed = Date.now() - Number(sessionStorage.getItem("dye-wipe-start") || Date.now());
+    if (elapsed < 0) elapsed = 0;
+    if (elapsed > 850) elapsed = 850;
+    el.style.setProperty("--seek", (-elapsed) + "ms");
+    el.className = "dye-wipe active through";
+    window.__dyeWipePlaying = true;
+    var left = 1200 - elapsed;
+    setTimeout(function () { el.classList.add("done"); }, Math.max(0, left - 100));
+    setTimeout(function () {
+      el.className = "dye-wipe";
+      el.style.removeProperty("--seek");
+      window.__dyeWipePlaying = false;
+    }, left + 80);
+  })();
+  </script>
+
   <nav class="topnav">
     <a class="brand" href="../index.html"><img class="brand-logo" src="../images/logo.png" alt="Weave-a-World logo" />Weave-a-World</a>
     <div class="topnav-links">
@@ -194,6 +228,6 @@
       <p>The Living Colours · Ten Educational Posters on Cultural Preservation · By Charles Huang (Hong Kong SAR)</p>
     </div>
   </footer>
-  <script src="../js/main.js?v=13"></script>
+  <script src="../js/main.js?v=14"></script>
 </body>
 </html>

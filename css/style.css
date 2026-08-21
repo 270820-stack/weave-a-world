@@ -45,7 +45,7 @@ body::before {
   z-index: 0;
   pointer-events: none;
   opacity: var(--pattern-opacity);
-  background-image: var(--page-pattern);
+  background-image: url("../images/patterns/atlas.jpg");
   background-size: 420px;
   background-repeat: repeat;
   mix-blend-mode: multiply;
