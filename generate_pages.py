@@ -611,44 +611,22 @@ DYES = [
 BYLINE = "By Charles Huang (Hong Kong SAR) · Weave-a-World"
 
 # Bump when css/js change so browsers fetch the new files instead of cached ones
-ASSET_V = "28"
+ASSET_V = "29"
 
 
 def page_assets(depth: int, page: str, slug: str | None = None) -> list[str]:
     p = "../" if depth else ""
-    shared = [
-        f"{p}images/logo.png",
-        f"{p}images/favicon.png",
-        f"{p}images/patterns/atlas.jpg",
-    ]
     if page == "home":
-        return shared + [
-            f"{p}images/splash-bg.jpg",
-            f"{p}images/cloth-1.png",
-            f"{p}images/cloth-2.png",
-            f"{p}images/cloth-3.png",
-        ]
+        return [f"{p}images/splash-bg.jpg", f"{p}images/logo.png"]
     if page == "collection":
-        return shared + [
-            f"{p}images/collection-hero.jpg",
-            f"{p}images/yellow-sash.png",
-        ]
+        return [f"{p}images/collection-hero.jpg", f"{p}images/logo.png"]
     if page == "youth":
-        return shared + [f"{p}images/cloth-ribbon.png"]
+        return [f"{p}images/logo.png"]
     if page == "about":
-        return shared + [
-            f"{p}images/about-hero.jpg",
-            f"{p}images/founder.jpg",
-        ]
+        return [f"{p}images/about-hero.jpg", f"{p}images/logo.png"]
     if page == "dye" and slug:
-        return [
-            f"{p}images/logo.png",
-            f"{p}images/favicon.png",
-            f"{p}images/{slug}.png",
-            f"{p}images/patterns/{slug}.jpg",
-            f"{p}images/cloth-ribbon.png",
-        ]
-    return shared
+        return [f"{p}images/logo.png", f"{p}images/patterns/{slug}.jpg"]
+    return [f"{p}images/logo.png"]
 
 
 def loader_boot(depth: int = 0, page: str = "home", slug: str | None = None) -> str:
@@ -696,15 +674,12 @@ def loader_boot(depth: int = 0, page: str = "home", slug: str | None = None) -> 
       finished = true;
       setProgress(urls.length, urls.length);
       try {{ sessionStorage.setItem("ww-assets-ready", "1"); }} catch (e) {{}}
-      var wait = Math.max(0, 220 - (Date.now() - started));
-      setTimeout(function () {{
-        el.classList.add("is-done");
-        el.setAttribute("aria-busy", "false");
-        document.documentElement.classList.remove("is-loading");
-        document.documentElement.classList.add("is-ready");
-        replayMotion();
-        setTimeout(function () {{ el.remove(); }}, 500);
-      }}, wait);
+      el.classList.add("is-done");
+      el.setAttribute("aria-busy", "false");
+      document.documentElement.classList.remove("is-loading");
+      document.documentElement.classList.add("is-ready");
+      replayMotion();
+      setTimeout(function () {{ el.remove(); }}, 280);
     }}
     function loadOne(src) {{
       return new Promise(function (resolve) {{
@@ -726,7 +701,7 @@ def loader_boot(depth: int = 0, page: str = "home", slug: str | None = None) -> 
       }}
     }}
     pump();
-    setTimeout(finish, 8000);
+    setTimeout(finish, 1500);
   }})();
   </script>
 """
