@@ -28,8 +28,7 @@ A static educational website presenting **ten posters on natural dye traditions 
 No build step is required — open `index.html` in a browser, or serve locally:
 
 ```bash
-python3 -m http.server 8642
-# then visit http://localhost:8642
+https://270820-stack.github.io/weave-a-world/index.html
 ```
 
 ## Editing content
