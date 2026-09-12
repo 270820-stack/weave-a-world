@@ -26,6 +26,75 @@
   --sans: "Jost", "Avenir Next", "Segoe UI", sans-serif;
 }
 
+.asset-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background:
+    radial-gradient(ellipse at 50% 28%, rgba(185, 138, 46, 0.18), transparent 52%),
+    #221c17;
+  color: var(--paper);
+  text-align: center;
+}
+html.is-loading .asset-loader,
+.asset-loader.is-done { display: flex; }
+.asset-loader.is-done {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.55s ease;
+}
+.asset-loader-inner {
+  width: min(28rem, 92vw);
+}
+.asset-loader-logo {
+  width: 88px;
+  height: auto;
+  margin: 0 auto 1.2rem;
+  filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.35));
+}
+.asset-loader-kicker {
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.55rem;
+}
+.asset-loader-title {
+  font-family: var(--display);
+  font-size: clamp(2rem, 6vw, 3.1rem);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  margin-bottom: 1.6rem;
+}
+.asset-loader-track {
+  height: 7px;
+  border-radius: 999px;
+  background: rgba(247, 242, 234, 0.14);
+  overflow: hidden;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+.asset-loader-fill {
+  display: block;
+  width: 0;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #8a6a32, var(--gold), #e8c56a);
+  transition: width 0.25s ease;
+}
+.asset-loader-copy {
+  margin-top: 0.9rem;
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(247, 242, 234, 0.62);
+}
+
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 html { scroll-behavior: smooth; }
@@ -1159,6 +1228,7 @@ a:hover { color: var(--accent-deep); }
 @media (prefers-reduced-motion: reduce) {
   .about-hero-bg, .orb, .mv-icon, .about-cta, .scroll-cue span, .ticker-track,
   .splash-bg, .splash-waves path, .cloth, .splash-scroll::after,
+  .asset-loader.is-done { transition: none; }
   .masthead-bar, .masthead-ribbon, .masthead-slash,
   .page-masthead .eyebrow, .page-masthead .masthead-solid,
   .page-masthead .masthead-script, .page-masthead .masthead-lede,

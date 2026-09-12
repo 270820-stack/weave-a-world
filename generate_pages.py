@@ -6,6 +6,7 @@ Weave-a-World "Living Colours" website. Run from dye-heritage-website/:
 """
 
 import html
+import json
 from pathlib import Path
 
 ROOT = Path(__file__).parent
@@ -610,7 +611,109 @@ DYES = [
 BYLINE = "By Charles Huang (Hong Kong SAR) · Weave-a-World"
 
 # Bump when css/js change so browsers fetch the new files instead of cached ones
-ASSET_V = "25"
+ASSET_V = "26"
+
+
+def site_assets(depth: int) -> list[str]:
+    p = "../" if depth else ""
+    assets = [
+        f"{p}images/logo.png",
+        f"{p}images/favicon.png",
+        f"{p}images/splash-bg.jpg",
+        f"{p}images/home-hero.png",
+        f"{p}images/collection-hero.jpg",
+        f"{p}images/about-hero.jpg",
+        f"{p}images/founder.jpg",
+        f"{p}images/cloth-1.png",
+        f"{p}images/cloth-2.png",
+        f"{p}images/cloth-3.png",
+        f"{p}images/cloth-ribbon.png",
+        f"{p}images/yellow-sash.png",
+        f"{p}images/patterns/atlas.jpg",
+    ]
+    for dye in DYES:
+        assets.append(f"{p}images/{dye['slug']}.png")
+        assets.append(f"{p}images/patterns/{dye['slug']}.jpg")
+    return assets
+
+
+def loader_boot(depth: int = 0) -> str:
+    p = "../" if depth else ""
+    assets_json = json.dumps(site_assets(depth))
+    return f"""  <div class="asset-loader" id="asset-loader" role="status" aria-live="polite" aria-busy="true">
+    <div class="asset-loader-inner">
+      <img class="asset-loader-logo" src="{p}images/logo.png" alt="" />
+      <p class="asset-loader-kicker">The Living Colours</p>
+      <p class="asset-loader-title">Weave-a-World</p>
+      <div class="asset-loader-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="asset-loader-bar">
+        <span class="asset-loader-fill" id="asset-loader-fill"></span>
+      </div>
+      <p class="asset-loader-copy" id="asset-loader-copy">Gathering the dyes&hellip; 0%</p>
+    </div>
+  </div>
+  <script>
+  (function () {{
+    var el = document.getElementById("asset-loader");
+    if (!el || !document.documentElement.classList.contains("is-loading")) {{
+      if (el) el.remove();
+      return;
+    }}
+    var urls = {assets_json};
+    var fill = document.getElementById("asset-loader-fill");
+    var bar = document.getElementById("asset-loader-bar");
+    var copy = document.getElementById("asset-loader-copy");
+    var started = Date.now();
+    var done = 0;
+    var index = 0;
+    var running = 0;
+    var finished = false;
+    var CONC = 6;
+    function setProgress(n, total) {{
+      var pct = total ? Math.round((n / total) * 100) : 100;
+      if (fill) fill.style.width = pct + "%";
+      if (bar) bar.setAttribute("aria-valuenow", String(pct));
+      if (copy) copy.textContent = "Gathering the dyes… " + pct + "%";
+    }}
+    function finish() {{
+      if (finished) return;
+      finished = true;
+      setProgress(urls.length, urls.length);
+      try {{ sessionStorage.setItem("ww-assets-ready", "1"); }} catch (e) {{}}
+      var wait = Math.max(0, 700 - (Date.now() - started));
+      setTimeout(function () {{
+        el.classList.add("is-done");
+        el.setAttribute("aria-busy", "false");
+        document.documentElement.classList.remove("is-loading");
+        setTimeout(function () {{ el.remove(); }}, 600);
+      }}, wait);
+    }}
+    function loadOne(src) {{
+      return new Promise(function (resolve) {{
+        var img = new Image();
+        img.onload = img.onerror = function () {{ resolve(); }};
+        img.src = src;
+      }});
+    }}
+    function pump() {{
+      if (done >= urls.length) {{ finish(); return; }}
+      while (running < CONC && index < urls.length) {{
+        running += 1;
+        loadOne(urls[index++]).then(function () {{
+          running -= 1;
+          done += 1;
+          setProgress(done, urls.length);
+          pump();
+        }});
+      }}
+    }}
+    if (document.fonts && document.fonts.ready) {{
+      document.fonts.ready.catch(function () {{}});
+    }}
+    pump();
+    setTimeout(finish, 28000);
+  }})();
+  </script>
+"""
 
 
 def wipe_boot() -> str:
@@ -644,6 +747,10 @@ def wipe_boot() -> str:
   }})();
   </script>
 """
+
+
+def page_boot(depth: int = 0) -> str:
+    return loader_boot(depth) + wipe_boot()
 
 
 def nav(depth: int, active: str) -> str:
@@ -693,6 +800,24 @@ def head(title: str, depth: int, accent=None, accent_deep=None, accent_soft=None
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{html.escape(title)}</title>
+  <script>
+  (function () {{
+    try {{
+      if (sessionStorage.getItem("ww-assets-ready") === "1") return;
+      if (sessionStorage.getItem("dye-wipe")) return;
+    }} catch (e) {{}}
+    document.documentElement.classList.add("is-loading");
+  }})();
+  </script>
+  <style>
+    html.is-loading, html.is-loading body {{ overflow: hidden !important; }}
+    .asset-loader {{
+      position: fixed; inset: 0; z-index: 10000;
+      display: none; align-items: center; justify-content: center;
+      background: #221c17; color: #f7f2ea;
+    }}
+    html.is-loading .asset-loader {{ display: flex; }}
+  </style>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500;1,700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,600&family=Jost:wght@300;400;500&family=Nunito:wght@700;800&display=swap" rel="stylesheet" />
@@ -819,7 +944,7 @@ def poster_page(i: int, dye: dict) -> str:
 
     return f"""{head(f"{dye['living']}: {dye['title']} · Weave-a-World", 1, dye['accent'], dye['accent_deep'], dye['accent_soft'], f"{dye['slug']}.jpg")}
 <body>
-{wipe_boot()}
+{page_boot(1)}
 {nav(1, 'collection')}
 
   <header class="poster-hero">
@@ -910,7 +1035,7 @@ def collection_page() -> str:
 
     return f"""{head("The Ten Dyes · Weave-a-World", 0, pattern="atlas.jpg")}
 <body>
-{wipe_boot()}
+{page_boot()}
 {nav(0, 'collection')}
 
 {page_masthead(
@@ -964,7 +1089,7 @@ def youth_page() -> str:
 
     return f"""{head("Youth Action · Weave-a-World", 0)}
 <body>
-{wipe_boot()}
+{page_boot()}
 {nav(0, 'youth')}
 
 {page_masthead(
@@ -1001,7 +1126,7 @@ def about_page() -> str:
     )
     return f"""{head("About Us · Weave-a-World", 0)}
 <body>
-{wipe_boot()}
+{page_boot()}
 {nav(0, 'about')}
 
   <header class="about-hero">
@@ -1102,7 +1227,7 @@ def index_page() -> str:
 
     return f"""{head("Weave-a-World · The Living Colours", 0)}
 <body class="home">
-{wipe_boot()}
+{page_boot()}
   <div class="side-textiles" aria-hidden="true">
     <img class="side-cloth" src="images/cloth-1.png" style="top:4%; left:-4%; width:min(26vw,280px); transform:rotate(-22deg)" alt="" />
     <img class="side-cloth" src="images/cloth-3.png" style="top:7%; right:-3%; width:min(18vw,200px); transform:rotate(12deg)" alt="" />
