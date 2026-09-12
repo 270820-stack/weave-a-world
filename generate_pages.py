@@ -611,7 +611,7 @@ DYES = [
 BYLINE = "By Charles Huang (Hong Kong SAR) · Weave-a-World"
 
 # Bump when css/js change so browsers fetch the new files instead of cached ones
-ASSET_V = "27"
+ASSET_V = "28"
 
 
 def page_assets(depth: int, page: str, slug: str | None = None) -> list[str]:
@@ -652,17 +652,13 @@ def page_assets(depth: int, page: str, slug: str | None = None) -> list[str]:
 
 
 def loader_boot(depth: int = 0, page: str = "home", slug: str | None = None) -> str:
-    p = "../" if depth else ""
     assets_json = json.dumps(page_assets(depth, page, slug))
     return f"""  <div class="asset-loader" id="asset-loader" role="status" aria-live="polite" aria-busy="true">
     <div class="asset-loader-inner">
-      <img class="asset-loader-logo" src="{p}images/logo.png" alt="" />
-      <p class="asset-loader-kicker">The Living Colours</p>
-      <p class="asset-loader-title">Weave-a-World</p>
       <div class="asset-loader-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="asset-loader-bar">
         <span class="asset-loader-fill" id="asset-loader-fill"></span>
       </div>
-      <p class="asset-loader-copy" id="asset-loader-copy">Gathering the dyes&hellip; 0%</p>
+      <p class="asset-loader-copy" id="asset-loader-copy">Loading 0%</p>
     </div>
   </div>
   <script>
@@ -686,7 +682,7 @@ def loader_boot(depth: int = 0, page: str = "home", slug: str | None = None) -> 
       var pct = total ? Math.round((n / total) * 100) : 100;
       if (fill) fill.style.width = pct + "%";
       if (bar) bar.setAttribute("aria-valuenow", String(pct));
-      if (copy) copy.textContent = "Gathering the dyes… " + pct + "%";
+      if (copy) copy.textContent = "Loading " + pct + "%";
     }}
     function replayMotion() {{
       document.querySelectorAll(".cloth, .splash-bg, .splash-waves path, .splash-scroll, .page-masthead .eyebrow, .page-masthead .masthead-solid, .page-masthead .masthead-script, .page-masthead .masthead-lede, .page-masthead .masthead-aside, .page-masthead .masthead-ribbon, .page-masthead .masthead-slash, .page-masthead .masthead-bar").forEach(function (node) {{
@@ -834,7 +830,7 @@ def head(title: str, depth: int, accent=None, accent_deep=None, accent_soft=None
     .asset-loader {{
       position: fixed; inset: 0; z-index: 10000;
       display: none; align-items: center; justify-content: center;
-      background: #221c17; color: #f7f2ea;
+      background: #070707; color: #fff;
     }}
     html.is-loading .asset-loader {{ display: flex; }}
   </style>

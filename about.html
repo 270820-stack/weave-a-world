@@ -18,7 +18,7 @@
     .asset-loader {
       position: fixed; inset: 0; z-index: 10000;
       display: none; align-items: center; justify-content: center;
-      background: #221c17; color: #f7f2ea;
+      background: #070707; color: #fff;
     }
     html.is-loading .asset-loader { display: flex; }
   </style>
@@ -26,7 +26,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500;1,700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,600&family=Jost:wght@300;400;500&family=Nunito:wght@700;800&display=swap" rel="stylesheet" />
   <link rel="icon" type="image/png" href="images/favicon.png" />
-  <link rel="stylesheet" href="css/style.css?v=27" />
+  <link rel="stylesheet" href="css/style.css?v=28" />
   <style>
     :root {
     }
@@ -38,13 +38,10 @@
 <body>
   <div class="asset-loader" id="asset-loader" role="status" aria-live="polite" aria-busy="true">
     <div class="asset-loader-inner">
-      <img class="asset-loader-logo" src="images/logo.png" alt="" />
-      <p class="asset-loader-kicker">The Living Colours</p>
-      <p class="asset-loader-title">Weave-a-World</p>
       <div class="asset-loader-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="asset-loader-bar">
         <span class="asset-loader-fill" id="asset-loader-fill"></span>
       </div>
-      <p class="asset-loader-copy" id="asset-loader-copy">Gathering the dyes&hellip; 0%</p>
+      <p class="asset-loader-copy" id="asset-loader-copy">Loading 0%</p>
     </div>
   </div>
   <script>
@@ -68,7 +65,7 @@
       var pct = total ? Math.round((n / total) * 100) : 100;
       if (fill) fill.style.width = pct + "%";
       if (bar) bar.setAttribute("aria-valuenow", String(pct));
-      if (copy) copy.textContent = "Gathering the dyes… " + pct + "%";
+      if (copy) copy.textContent = "Loading " + pct + "%";
     }
     function replayMotion() {
       document.querySelectorAll(".cloth, .splash-bg, .splash-waves path, .splash-scroll, .page-masthead .eyebrow, .page-masthead .masthead-solid, .page-masthead .masthead-script, .page-masthead .masthead-lede, .page-masthead .masthead-aside, .page-masthead .masthead-ribbon, .page-masthead .masthead-slash, .page-masthead .masthead-bar").forEach(function (node) {
@@ -234,6 +231,6 @@
       <p>The Living Colours · Ten Educational Posters on Cultural Preservation · By Charles Huang (Hong Kong SAR)</p>
     </div>
   </footer>
-  <script src="js/main.js?v=27"></script>
+  <script src="js/main.js?v=28"></script>
 </body>
 </html>
