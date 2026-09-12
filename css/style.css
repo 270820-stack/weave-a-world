@@ -42,6 +42,10 @@
 }
 html.is-loading .asset-loader,
 .asset-loader.is-done { display: flex; }
+html.is-loading body > *:not(.asset-loader),
+html.is-loading body > *:not(.asset-loader) * {
+  animation-play-state: paused !important;
+}
 .asset-loader.is-done {
   opacity: 0;
   pointer-events: none;

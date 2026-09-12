@@ -26,7 +26,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500;1,700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,600&family=Jost:wght@300;400;500&family=Nunito:wght@700;800&display=swap" rel="stylesheet" />
   <link rel="icon" type="image/png" href="../images/favicon.png" />
-  <link rel="stylesheet" href="../css/style.css?v=26" />
+  <link rel="stylesheet" href="../css/style.css?v=27" />
   <style>
     :root {
       --accent: #a37f3d;
@@ -57,7 +57,7 @@
       if (el) el.remove();
       return;
     }
-    var urls = ["../images/logo.png", "../images/favicon.png", "../images/splash-bg.jpg", "../images/home-hero.png", "../images/collection-hero.jpg", "../images/about-hero.jpg", "../images/founder.jpg", "../images/cloth-1.png", "../images/cloth-2.png", "../images/cloth-3.png", "../images/cloth-ribbon.png", "../images/yellow-sash.png", "../images/patterns/atlas.jpg", "../images/indigo-west-africa.png", "../images/patterns/indigo-west-africa.jpg", "../images/cochineal-mexico-peru.png", "../images/patterns/cochineal-mexico-peru.jpg", "../images/madder-india.png", "../images/patterns/madder-india.jpg", "../images/woad-celtic-europe.png", "../images/patterns/woad-celtic-europe.jpg", "../images/marigold-navajo.png", "../images/patterns/marigold-navajo.jpg", "../images/saffron-persia.png", "../images/patterns/saffron-persia.jpg", "../images/shibori-indigo-japan.png", "../images/patterns/shibori-indigo-japan.jpg", "../images/birch-bark-finland.png", "../images/patterns/birch-bark-finland.jpg", "../images/henna-north-africa-india.png", "../images/patterns/henna-north-africa-india.jpg", "../images/logwood-caribbean.png", "../images/patterns/logwood-caribbean.jpg"];
+    var urls = ["../images/logo.png", "../images/favicon.png", "../images/birch-bark-finland.png", "../images/patterns/birch-bark-finland.jpg", "../images/cloth-ribbon.png"];
     var fill = document.getElementById("asset-loader-fill");
     var bar = document.getElementById("asset-loader-bar");
     var copy = document.getElementById("asset-loader-copy");
@@ -66,24 +66,33 @@
     var index = 0;
     var running = 0;
     var finished = false;
-    var CONC = 6;
+    var CONC = 8;
     function setProgress(n, total) {
       var pct = total ? Math.round((n / total) * 100) : 100;
       if (fill) fill.style.width = pct + "%";
       if (bar) bar.setAttribute("aria-valuenow", String(pct));
       if (copy) copy.textContent = "Gathering the dyes… " + pct + "%";
     }
+    function replayMotion() {
+      document.querySelectorAll(".cloth, .splash-bg, .splash-waves path, .splash-scroll, .page-masthead .eyebrow, .page-masthead .masthead-solid, .page-masthead .masthead-script, .page-masthead .masthead-lede, .page-masthead .masthead-aside, .page-masthead .masthead-ribbon, .page-masthead .masthead-slash, .page-masthead .masthead-bar").forEach(function (node) {
+        node.style.animation = "none";
+        void node.offsetWidth;
+        node.style.removeProperty("animation");
+      });
+    }
     function finish() {
       if (finished) return;
       finished = true;
       setProgress(urls.length, urls.length);
       try { sessionStorage.setItem("ww-assets-ready", "1"); } catch (e) {}
-      var wait = Math.max(0, 700 - (Date.now() - started));
+      var wait = Math.max(0, 220 - (Date.now() - started));
       setTimeout(function () {
         el.classList.add("is-done");
         el.setAttribute("aria-busy", "false");
         document.documentElement.classList.remove("is-loading");
-        setTimeout(function () { el.remove(); }, 600);
+        document.documentElement.classList.add("is-ready");
+        replayMotion();
+        setTimeout(function () { el.remove(); }, 500);
       }, wait);
     }
     function loadOne(src) {
@@ -105,11 +114,8 @@
         });
       }
     }
-    if (document.fonts && document.fonts.ready) {
-      document.fonts.ready.catch(function () {});
-    }
     pump();
-    setTimeout(finish, 28000);
+    setTimeout(finish, 8000);
   })();
   </script>
   <div class="dye-wipe" id="dye-wipe" aria-hidden="true">
@@ -319,6 +325,6 @@
       <p>The Living Colours · Ten Educational Posters on Cultural Preservation · By Charles Huang (Hong Kong SAR)</p>
     </div>
   </footer>
-  <script src="../js/main.js?v=26"></script>
+  <script src="../js/main.js?v=27"></script>
 </body>
 </html>

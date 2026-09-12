@@ -611,35 +611,49 @@ DYES = [
 BYLINE = "By Charles Huang (Hong Kong SAR) · Weave-a-World"
 
 # Bump when css/js change so browsers fetch the new files instead of cached ones
-ASSET_V = "26"
+ASSET_V = "27"
 
 
-def site_assets(depth: int) -> list[str]:
+def page_assets(depth: int, page: str, slug: str | None = None) -> list[str]:
     p = "../" if depth else ""
-    assets = [
+    shared = [
         f"{p}images/logo.png",
         f"{p}images/favicon.png",
-        f"{p}images/splash-bg.jpg",
-        f"{p}images/home-hero.png",
-        f"{p}images/collection-hero.jpg",
-        f"{p}images/about-hero.jpg",
-        f"{p}images/founder.jpg",
-        f"{p}images/cloth-1.png",
-        f"{p}images/cloth-2.png",
-        f"{p}images/cloth-3.png",
-        f"{p}images/cloth-ribbon.png",
-        f"{p}images/yellow-sash.png",
         f"{p}images/patterns/atlas.jpg",
     ]
-    for dye in DYES:
-        assets.append(f"{p}images/{dye['slug']}.png")
-        assets.append(f"{p}images/patterns/{dye['slug']}.jpg")
-    return assets
+    if page == "home":
+        return shared + [
+            f"{p}images/splash-bg.jpg",
+            f"{p}images/cloth-1.png",
+            f"{p}images/cloth-2.png",
+            f"{p}images/cloth-3.png",
+        ]
+    if page == "collection":
+        return shared + [
+            f"{p}images/collection-hero.jpg",
+            f"{p}images/yellow-sash.png",
+        ]
+    if page == "youth":
+        return shared + [f"{p}images/cloth-ribbon.png"]
+    if page == "about":
+        return shared + [
+            f"{p}images/about-hero.jpg",
+            f"{p}images/founder.jpg",
+        ]
+    if page == "dye" and slug:
+        return [
+            f"{p}images/logo.png",
+            f"{p}images/favicon.png",
+            f"{p}images/{slug}.png",
+            f"{p}images/patterns/{slug}.jpg",
+            f"{p}images/cloth-ribbon.png",
+        ]
+    return shared
 
 
-def loader_boot(depth: int = 0) -> str:
+def loader_boot(depth: int = 0, page: str = "home", slug: str | None = None) -> str:
     p = "../" if depth else ""
-    assets_json = json.dumps(site_assets(depth))
+    assets_json = json.dumps(page_assets(depth, page, slug))
     return f"""  <div class="asset-loader" id="asset-loader" role="status" aria-live="polite" aria-busy="true">
     <div class="asset-loader-inner">
       <img class="asset-loader-logo" src="{p}images/logo.png" alt="" />
@@ -667,24 +681,33 @@ def loader_boot(depth: int = 0) -> str:
     var index = 0;
     var running = 0;
     var finished = false;
-    var CONC = 6;
+    var CONC = 8;
     function setProgress(n, total) {{
       var pct = total ? Math.round((n / total) * 100) : 100;
       if (fill) fill.style.width = pct + "%";
       if (bar) bar.setAttribute("aria-valuenow", String(pct));
       if (copy) copy.textContent = "Gathering the dyes… " + pct + "%";
     }}
+    function replayMotion() {{
+      document.querySelectorAll(".cloth, .splash-bg, .splash-waves path, .splash-scroll, .page-masthead .eyebrow, .page-masthead .masthead-solid, .page-masthead .masthead-script, .page-masthead .masthead-lede, .page-masthead .masthead-aside, .page-masthead .masthead-ribbon, .page-masthead .masthead-slash, .page-masthead .masthead-bar").forEach(function (node) {{
+        node.style.animation = "none";
+        void node.offsetWidth;
+        node.style.removeProperty("animation");
+      }});
+    }}
     function finish() {{
       if (finished) return;
       finished = true;
       setProgress(urls.length, urls.length);
       try {{ sessionStorage.setItem("ww-assets-ready", "1"); }} catch (e) {{}}
-      var wait = Math.max(0, 700 - (Date.now() - started));
+      var wait = Math.max(0, 220 - (Date.now() - started));
       setTimeout(function () {{
         el.classList.add("is-done");
         el.setAttribute("aria-busy", "false");
         document.documentElement.classList.remove("is-loading");
-        setTimeout(function () {{ el.remove(); }}, 600);
+        document.documentElement.classList.add("is-ready");
+        replayMotion();
+        setTimeout(function () {{ el.remove(); }}, 500);
       }}, wait);
     }}
     function loadOne(src) {{
@@ -706,11 +729,8 @@ def loader_boot(depth: int = 0) -> str:
         }});
       }}
     }}
-    if (document.fonts && document.fonts.ready) {{
-      document.fonts.ready.catch(function () {{}});
-    }}
     pump();
-    setTimeout(finish, 28000);
+    setTimeout(finish, 8000);
   }})();
   </script>
 """
@@ -749,8 +769,8 @@ def wipe_boot() -> str:
 """
 
 
-def page_boot(depth: int = 0) -> str:
-    return loader_boot(depth) + wipe_boot()
+def page_boot(depth: int = 0, page: str = "home", slug: str | None = None) -> str:
+    return loader_boot(depth, page, slug) + wipe_boot()
 
 
 def nav(depth: int, active: str) -> str:
@@ -944,7 +964,7 @@ def poster_page(i: int, dye: dict) -> str:
 
     return f"""{head(f"{dye['living']}: {dye['title']} · Weave-a-World", 1, dye['accent'], dye['accent_deep'], dye['accent_soft'], f"{dye['slug']}.jpg")}
 <body>
-{page_boot(1)}
+{page_boot(1, "dye", dye["slug"])}
 {nav(1, 'collection')}
 
   <header class="poster-hero">
@@ -1035,7 +1055,7 @@ def collection_page() -> str:
 
     return f"""{head("The Ten Dyes · Weave-a-World", 0, pattern="atlas.jpg")}
 <body>
-{page_boot()}
+{page_boot(0, "collection")}
 {nav(0, 'collection')}
 
 {page_masthead(
@@ -1089,7 +1109,7 @@ def youth_page() -> str:
 
     return f"""{head("Youth Action · Weave-a-World", 0)}
 <body>
-{page_boot()}
+{page_boot(0, "youth")}
 {nav(0, 'youth')}
 
 {page_masthead(
@@ -1126,7 +1146,7 @@ def about_page() -> str:
     )
     return f"""{head("About Us · Weave-a-World", 0)}
 <body>
-{page_boot()}
+{page_boot(0, "about")}
 {nav(0, 'about')}
 
   <header class="about-hero">
@@ -1227,7 +1247,7 @@ def index_page() -> str:
 
     return f"""{head("Weave-a-World · The Living Colours", 0)}
 <body class="home">
-{page_boot()}
+{page_boot(0, "home")}
   <div class="side-textiles" aria-hidden="true">
     <img class="side-cloth" src="images/cloth-1.png" style="top:4%; left:-4%; width:min(26vw,280px); transform:rotate(-22deg)" alt="" />
     <img class="side-cloth" src="images/cloth-3.png" style="top:7%; right:-3%; width:min(18vw,200px); transform:rotate(12deg)" alt="" />
