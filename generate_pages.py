@@ -611,7 +611,7 @@ DYES = [
 BYLINE = "By Charles Huang (Hong Kong SAR) · Weave-a-World"
 
 # Bump when css/js change so browsers fetch the new files instead of cached ones
-ASSET_V = "31"
+ASSET_V = "32"
 
 INFOGRAPHICS = {
     "indigo-west-africa",
@@ -948,6 +948,7 @@ def poster_page(i: int, dye: dict) -> str:
         infographic = f"""  <figure class="poster-infographic">
     <img src="../images/infographics/{dye['slug']}.jpg" alt="Infographic poster: {html.escape(dye['living'])}: {html.escape(dye['title'])}" />
   </figure>
+  <div class="poster-rule" aria-hidden="true"></div>
 """
 
     return f"""{head(f"{dye['living']}: {dye['title']} · Weave-a-World", 1, dye['accent'], dye['accent_deep'], dye['accent_soft'], f"{dye['slug']}.jpg")}

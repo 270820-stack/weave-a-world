@@ -1399,6 +1399,11 @@ a:hover { color: var(--accent-deep); }
   display: block;
   border-radius: 0;
 }
+.poster-rule {
+  width: 100%;
+  height: 3.6rem;
+  background: var(--ink);
+}
 
 .poster-byline {
   margin-top: 1.5rem;
