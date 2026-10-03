@@ -26,7 +26,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500;1,700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,600&family=Jost:wght@300;400;500&family=Nunito:wght@700;800&display=swap" rel="stylesheet" />
   <link rel="icon" type="image/png" href="../images/favicon.png" />
-  <link rel="stylesheet" href="../css/style.css?v=29" />
+  <link rel="stylesheet" href="../css/style.css?v=30" />
   <style>
     :root {
       --accent: #a3402c;
@@ -54,7 +54,7 @@
       if (el) el.remove();
       return;
     }
-    var urls = ["../images/logo.png", "../images/patterns/madder-india.jpg"];
+    var urls = ["../images/logo.png", "../images/patterns/madder-india.jpg", "../images/infographics/madder-india.jpg"];
     var fill = document.getElementById("asset-loader-fill");
     var bar = document.getElementById("asset-loader-bar");
     var copy = document.getElementById("asset-loader-copy");
@@ -154,10 +154,14 @@
   </nav>
 
   <header class="poster-hero">
-    <div class="shell poster-hero-grid">
+    <div class="shell">
+      <div class="poster-kicker">Poster 03 of 10 · India</div>
+      <h1><em>The Living Red:</em><br />Madder Root in India</h1>
+    <figure class="poster-infographic">
+      <img src="../images/infographics/madder-india.jpg" alt="Infographic poster: The Living Red: Madder Root in India" />
+    </figure>
+      <div class="poster-hero-grid">
       <div class="poster-hero-text">
-        <div class="poster-kicker">Poster 03 of 10 · India</div>
-        <h1><em>The Living Red:</em><br />Madder Root in India</h1>
         <p class="poster-byline">By Charles Huang (Hong Kong SAR) · Weave-a-World</p>
         <p class="poster-lede">The roots of the manjistha plant give India its sacred reds — the colour of fertility, marriage, and blessing woven into saris, turbans, and legendary block-printed cottons.</p>
       </div>
@@ -165,6 +169,7 @@
         <img src="../images/madder-india.png" alt="Textile-art illustration: Madder Root in India" />
         <figcaption>Block printing beside a pot of madder dye — the bandhani dots of Gujarat reserved in white against alizarin red.</figcaption>
       </figure>
+    </div>
     </div>
   </header>
 
@@ -318,6 +323,6 @@
       <p>The Living Colours · Ten Educational Posters on Cultural Preservation · By Charles Huang (Hong Kong SAR)</p>
     </div>
   </footer>
-  <script src="../js/main.js?v=29"></script>
+  <script src="../js/main.js?v=30"></script>
 </body>
 </html>

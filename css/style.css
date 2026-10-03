@@ -47,7 +47,7 @@ html.is-loading body > *:not(.asset-loader) * {
 .asset-loader.is-done {
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.55s ease;
+  transition: opacity 0.28s ease;
 }
 .asset-loader-inner {
   width: min(16rem, 70vw);
@@ -1387,6 +1387,21 @@ a:hover { color: var(--accent-deep); }
   max-width: 20ch;
 }
 .poster-hero h1 em { font-style: italic; }
+
+.poster-infographic {
+  margin: 1.5rem 0 0;
+}
+.poster-infographic img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 28px 56px -22px rgba(0, 0, 0, 0.5);
+}
+.poster-hero .poster-hero-grid { margin-top: 2rem; }
+
+.poster-hero-text .poster-byline { margin-top: 0; }
 
 .poster-byline {
   margin-top: 1.5rem;

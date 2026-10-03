@@ -611,7 +611,15 @@ DYES = [
 BYLINE = "By Charles Huang (Hong Kong SAR) · Weave-a-World"
 
 # Bump when css/js change so browsers fetch the new files instead of cached ones
-ASSET_V = "29"
+ASSET_V = "30"
+
+INFOGRAPHICS = {
+    "indigo-west-africa",
+    "cochineal-mexico-peru",
+    "madder-india",
+    "woad-celtic-europe",
+    "marigold-navajo",
+}
 
 
 def page_assets(depth: int, page: str, slug: str | None = None) -> list[str]:
@@ -625,7 +633,10 @@ def page_assets(depth: int, page: str, slug: str | None = None) -> list[str]:
     if page == "about":
         return [f"{p}images/about-hero.jpg", f"{p}images/logo.png"]
     if page == "dye" and slug:
-        return [f"{p}images/logo.png", f"{p}images/patterns/{slug}.jpg"]
+        assets = [f"{p}images/logo.png", f"{p}images/patterns/{slug}.jpg"]
+        if slug in INFOGRAPHICS:
+            assets.append(f"{p}images/infographics/{slug}.jpg")
+        return assets
     return [f"{p}images/logo.png"]
 
 
@@ -932,16 +943,24 @@ def poster_page(i: int, dye: dict) -> str:
 
     palette = "".join(f'<span style="background:{c}"></span>' for c in dye["palette"])
 
+    infographic = ""
+    if dye["slug"] in INFOGRAPHICS:
+        infographic = f"""    <figure class="poster-infographic">
+      <img src="../images/infographics/{dye['slug']}.jpg" alt="Infographic poster: {html.escape(dye['living'])}: {html.escape(dye['title'])}" />
+    </figure>
+"""
+
     return f"""{head(f"{dye['living']}: {dye['title']} · Weave-a-World", 1, dye['accent'], dye['accent_deep'], dye['accent_soft'], f"{dye['slug']}.jpg")}
 <body>
 {page_boot(1, "dye", dye["slug"])}
 {nav(1, 'collection')}
 
   <header class="poster-hero">
-    <div class="shell poster-hero-grid">
+    <div class="shell">
+      <div class="poster-kicker">Poster {dye['num']} of 10 · {html.escape(dye['region'])}</div>
+      <h1><em>{html.escape(dye['living'])}:</em><br />{html.escape(dye['title'])}</h1>
+{infographic}      <div class="poster-hero-grid">
       <div class="poster-hero-text">
-        <div class="poster-kicker">Poster {dye['num']} of 10 · {html.escape(dye['region'])}</div>
-        <h1><em>{html.escape(dye['living'])}:</em><br />{html.escape(dye['title'])}</h1>
         <p class="poster-byline">{html.escape(BYLINE)}</p>
         <p class="poster-lede">{dye['lede']}</p>
       </div>
@@ -949,6 +968,7 @@ def poster_page(i: int, dye: dict) -> str:
         <img src="../images/{dye['slug']}.png" alt="Textile-art illustration: {html.escape(dye['title'])}" />
         <figcaption>{html.escape(extras['art_caption'])}</figcaption>
       </figure>
+    </div>
     </div>
   </header>
 
