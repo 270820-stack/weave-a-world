@@ -611,7 +611,7 @@ DYES = [
 BYLINE = "By Charles Huang (Hong Kong SAR) · Weave-a-World"
 
 # Bump when css/js change so browsers fetch the new files instead of cached ones
-ASSET_V = "30"
+ASSET_V = "31"
 
 INFOGRAPHICS = {
     "indigo-west-africa",
@@ -945,9 +945,9 @@ def poster_page(i: int, dye: dict) -> str:
 
     infographic = ""
     if dye["slug"] in INFOGRAPHICS:
-        infographic = f"""    <figure class="poster-infographic">
-      <img src="../images/infographics/{dye['slug']}.jpg" alt="Infographic poster: {html.escape(dye['living'])}: {html.escape(dye['title'])}" />
-    </figure>
+        infographic = f"""  <figure class="poster-infographic">
+    <img src="../images/infographics/{dye['slug']}.jpg" alt="Infographic poster: {html.escape(dye['living'])}: {html.escape(dye['title'])}" />
+  </figure>
 """
 
     return f"""{head(f"{dye['living']}: {dye['title']} · Weave-a-World", 1, dye['accent'], dye['accent_deep'], dye['accent_soft'], f"{dye['slug']}.jpg")}
@@ -956,11 +956,10 @@ def poster_page(i: int, dye: dict) -> str:
 {nav(1, 'collection')}
 
   <header class="poster-hero">
-    <div class="shell">
-      <div class="poster-kicker">Poster {dye['num']} of 10 · {html.escape(dye['region'])}</div>
-      <h1><em>{html.escape(dye['living'])}:</em><br />{html.escape(dye['title'])}</h1>
-{infographic}      <div class="poster-hero-grid">
+    <div class="shell poster-hero-grid">
       <div class="poster-hero-text">
+        <div class="poster-kicker">Poster {dye['num']} of 10 · {html.escape(dye['region'])}</div>
+        <h1><em>{html.escape(dye['living'])}:</em><br />{html.escape(dye['title'])}</h1>
         <p class="poster-byline">{html.escape(BYLINE)}</p>
         <p class="poster-lede">{dye['lede']}</p>
       </div>
@@ -969,7 +968,6 @@ def poster_page(i: int, dye: dict) -> str:
         <figcaption>{html.escape(extras['art_caption'])}</figcaption>
       </figure>
     </div>
-    </div>
   </header>
 
   <div class="factbar">
@@ -977,6 +975,7 @@ def poster_page(i: int, dye: dict) -> str:
 {facts}
     </div>
   </div>
+{infographic}
 
   <main class="poster-body">
     <div class="shell poster-layout">
