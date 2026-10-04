@@ -426,16 +426,23 @@ a:hover { color: var(--accent-deep); }
    HOME PAGE
    ============================================================ */
 .home-threat {
-  background: var(--ink);
+  background: #100c0a;
   color: var(--paper);
-  padding: clamp(2.6rem, 6vw, 4rem) 0;
+  padding: clamp(5rem, 11vw, 8rem) 0;
 }
 .home-threat p {
-  max-width: 62ch;
+  max-width: 22em;
   margin: 0 auto;
   text-align: center;
-  font-size: clamp(1.12rem, 2.1vw, 1.42rem);
-  line-height: 1.55;
+  font-size: clamp(1.45rem, 3.2vw, 2.15rem);
+  line-height: 1.45;
+}
+.home-threat-stat {
+  font-family: var(--display);
+  font-size: 1.45em;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #fff;
 }
 
 .hero-home {

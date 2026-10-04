@@ -611,7 +611,7 @@ DYES = [
 BYLINE = "By Charles Huang (Hong Kong SAR) · Weave-a-World"
 
 # Bump when css/js change so browsers fetch the new files instead of cached ones
-ASSET_V = "33"
+ASSET_V = "34"
 
 INFOGRAPHICS = {
     "indigo-west-africa",
@@ -1276,7 +1276,7 @@ def index_page() -> str:
 
   <section class="home-threat" aria-label="Why this collection matters">
     <div class="shell">
-      <p>Fast fashion replaces slow, inherited skill with mass production. Worldwide, about 1 in 5 UNESCO-recognized intangible cultural heritage practices is threatened—often because traditional knowledge is no longer passed on.</p>
+      <p>Fast fashion replaces slow, inherited skill with mass production. Worldwide, about <strong class="home-threat-stat">1 in 5</strong> UNESCO-recognized intangible cultural heritage practices is threatened—often because traditional knowledge is no longer passed on.</p>
     </div>
   </section>
 
