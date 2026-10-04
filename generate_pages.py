@@ -611,7 +611,7 @@ DYES = [
 BYLINE = "By Charles Huang (Hong Kong SAR) · Weave-a-World"
 
 # Bump when css/js change so browsers fetch the new files instead of cached ones
-ASSET_V = "32"
+ASSET_V = "33"
 
 INFOGRAPHICS = {
     "indigo-west-africa",
@@ -1272,6 +1272,12 @@ def index_page() -> str:
       <img class="cloth cloth-e" src="images/cloth-2.png" alt="" />
     </div>
     <a class="splash-scroll" href="#intro">enter the collection</a>
+  </section>
+
+  <section class="home-threat" aria-label="Why this collection matters">
+    <div class="shell">
+      <p>Fast fashion replaces slow, inherited skill with mass production. Worldwide, about 1 in 5 UNESCO-recognized intangible cultural heritage practices is threatened—often because traditional knowledge is no longer passed on.</p>
+    </div>
   </section>
 
   <header class="hero-home" id="intro">
